@@ -5,13 +5,13 @@ app = Flask(__name__)
 def home():
     return render_template("Esercizio1.html")
 
-@app.route('/Meteo', methods=['GET'])
+@app.route('/meteo', methods=['GET'])
 def Meteo():
-    return ('<h1>Ciao,Mondo!</h1>')
+    return render_template("Esercizio1_meteo.html")
 
-@app.route('/fr', methods=['GET'])
-def bonjour():
-    return ('<h1>Bonjour,Monde!</h1>')
+@app.route('/frase', methods=['GET'])
+def Frase():
+    return render_template("Esercizio1_frase.html")
 
 if __name__ == '__main__':
   app.run(host='0.0.0.0', port=3245, debug=True)

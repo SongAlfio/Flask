@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Frase</title>
+</head>
+<body>
+    <script>
+        function casuale() {
+        num1 = Math.floor(Math.random()*10);
+        document.getElementById("casuale").innerHTML ="Numero casuale " + num1;
+        if(num1=0){
+            var node=document.createTextNode("Innamorati di te, della vita e dopo di chi vuoi.(Frida Kahlo)");
+        };
+        if(num1=1){
+            var node1=document.createTextNode("Contro la stupidità non abbiamo difese.(Dietrich Bonhoeffer)");
+        };
+        if(num1=2){
+            var node=document.createTextNode("Il divertimento è una cosa seria.(Italo Calvino)");
+        };
+        if(num1=3){
+            var node=document.createTextNode("Chi non ha bisogno di niente non è mai povero.(Voltaire)");
+        };
+        if(num1=4){
+            var node=document.createTextNode("Non importa quanto vai piano, l’importante è non fermarsi.(Confucio)");
+        };
+        if(num1=5){
+            var node=document.createTextNode("Prendete in mano la vostra vita e fatene un capolavoro.(Papa Giovanni Paolo II)");
+        };
+        if(num1=6){
+            var node=document.createTextNode("Maggiore è l’ostacolo, maggiore è la gloria nel superarlo.(Molière)");
+        };
+        if(num1=7){
+            var node=document.createTextNode("Più dura è la battaglia, più dolce è la vittoria.(Les Brown)");
+        };
+        if(num1=8){
+            var node=document.createTextNode("Il segreto per andare avanti è iniziare.(Mark Twain)");
+        };
+        if(num1=9){
+            var node=document.createTextNode("L’ironia è sprecata quando si usa sugli stupidi.(Oscar Wilde)");
+        };
+    }
+
+    </script>
+    <input type="button" onclick="casuale()" value="Genera casuale">
+    <p id="casuale"></p>
+</body>
+</html>
