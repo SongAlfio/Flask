@@ -8,19 +8,19 @@
         function casuale() {
         num = Math.floor(Math.random()*10);
         document.getElementById("casuale").innerHTML ="Numero casuale " + num;
-        if(num>2){
+        if(num<3){
             alert('Pioggia');
             var myImage = new Image(200, 200);
             myImage.src = "/static/1-200102162F9633.jpg";
             document.body.appendChild(myImage);
         };
-        if(num>3,num<5){
-            alertr('Nuvoloso');
+        if((num>=3) && (num<5)){
+            alert('Nuvoloso');
             var myImage = new Image(200, 200);
             myImage.src = "/static/nuvoloso.jpg";
             document.body.appendChild(myImage);var myImage = new Image(200, 200);
         };
-        if(num>5){
+        if(num>=5){
             alert('Sole');
             var myImage = new Image(200, 200);
             myImage.src = "/static/sole.jpg";
