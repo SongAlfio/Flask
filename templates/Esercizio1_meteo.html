@@ -2,27 +2,28 @@
 <html>
 <head>
     <title>Meteo</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/Esercizio1_meteo.css') }}">
 </head>
 <body>
     <script>
         function casuale() {
         num = Math.floor(Math.random()*10);
         document.getElementById("casuale").innerHTML ="Numero casuale " + num;
-        if(num<3){
+        if(num<=2){
             alert('Pioggia');
-            var myImage = new Image(200, 200);
+            var myImage = new Image;
             myImage.src = "/static/1-200102162F9633.jpg";
             document.body.appendChild(myImage);
         };
-        if((num>=3) && (num<5)){
+        if((num>2) && (num<=5)){
             alert('Nuvoloso');
-            var myImage = new Image(200, 200);
+            var myImage = new Image;
             myImage.src = "/static/nuvoloso.jpg";
-            document.body.appendChild(myImage);var myImage = new Image(200, 200);
+            document.body.appendChild(myImage);
         };
-        if(num>=5){
+        if(num>5){
             alert('Sole');
-            var myImage = new Image(200, 200);
+            var myImage = new Image;
             myImage.src = "/static/sole.jpg";
             document.body.appendChild(myImage);
         }

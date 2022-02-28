@@ -2,46 +2,77 @@
 <html>
 <head>
     <title>Frase</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/Esercizio1_meteo.css') }}">
 </head>
 <body>
     <script>
         function casuale() {
         num1 = Math.floor(Math.random()*10);
         document.getElementById("casuale").innerHTML ="Numero casuale " + num1;
-        if(num1=0){
-            var node=document.createTextNode("Innamorati di te, della vita e dopo di chi vuoi.(Frida Kahlo)");
+        if(num1==0){
+            var Frase = "Innamorati di te, della vita e dopo di chi vuoi.(Frida Kahlo)";
+            var myImage = ["/static/num1_0.jpg", "/static/Frida_Kahlo.jpg"];
+            document.write(Frase);
+            document.body.appendChild(myImage);
         };
-        if(num1=1){
-            var node1=document.createTextNode("Contro la stupidità non abbiamo difese.(Dietrich Bonhoeffer)");
+        if(num1==1){
+            var Frase1 = "Contro la stupidità non abbiamo difese.(Dietrich Bonhoeffer)";
+            var myImage = ["/static/num1_1.jpg", "/static/Dietrich_Bonhoeffer.jpg"];
+            document.write(Frase1);
+            document.body.appendChild(myImage);
         };
-        if(num1=2){
-            var node=document.createTextNode("Il divertimento è una cosa seria.(Italo Calvino)");
+        if(num1==2){
+            var Frase2 = "Il divertimento è una cosa seria.(Italo Calvino)";
+            var myImage = ["/static/num1_2.jpg", "static/Italo_Calvino.jpg"];
+            document.write(Frase2);
+            document.body.appendChild(myImage);
         };
-        if(num1=3){
-            var node=document.createTextNode("Chi non ha bisogno di niente non è mai povero.(Voltaire)");
+        if(num1==3){
+            var Frase3 = "Chi non ha bisogno di niente non è mai povero.(Voltaire)";
+            var myImage = ["/static/num1_3.jpg", "static/Voltaire.jpg"];
+            document.write(Frase3);
+            document.body.appendChild(myImage);
         };
-        if(num1=4){
-            var node=document.createTextNode("Non importa quanto vai piano, l’importante è non fermarsi.(Confucio)");
+        if(num1==4){
+            var Frase4 = "Non importa quanto vai piano, l'importante è non fermarsi.(Confucio)";
+            var myImage = ["/static/num1_4.jpg", "static/Confucio.jpg"];
+            document.write(Frase4);
+            document.body.appendChild(myImage);
         };
-        if(num1=5){
-            var node=document.createTextNode("Prendete in mano la vostra vita e fatene un capolavoro.(Papa Giovanni Paolo II)");
+        if(num1==5){
+            var Frase5 = "Prendete in mano la vostra vita e fatene un capolavoro.(Papa Giovanni Paolo II)";
+            var myImage = ["/static/num1_5.jpg", "/static/Papa_Giovanni_Paolo_II.jpg"];
+            document.write(Frase5);
+            document.body.appendChild(myImage);
         };
-        if(num1=6){
-            var node=document.createTextNode("Maggiore è l’ostacolo, maggiore è la gloria nel superarlo.(Molière)");
+        if(num1==6){
+            var Frase6 = "Maggiore è l'ostacolo, maggiore è la gloria nel superarlo.(Molière)";
+            var myImage = ["/static/num1_6.jpg", "/static/Molière.jpg"];
+            document.write(Frase6);
+            document.body.appendChild(myImage);
         };
-        if(num1=7){
-            var node=document.createTextNode("Più dura è la battaglia, più dolce è la vittoria.(Les Brown)");
+        if(num1==7){
+            var Frase7 = "Più dura è la battaglia, più dolce è la vittoria.(Les Brown)";
+            var myImage = ["/static/num1_7.jpg", "/static/Les_Brown.jpg"];
+            document.write(Frase7);
+            document.body.appendChild(myImage);
         };
-        if(num1=8){
-            var node=document.createTextNode("Il segreto per andare avanti è iniziare.(Mark Twain)");
+        if(num1==8){
+            var Frase8 = "Il segreto per andare avanti è iniziare.(Mark Twain)";
+            var myImage = ["/static/num1_8.jpg", "/static/Mark_Twain.jpg"];
+            document.write(Frase8);
+            document.body.appendChild(myImage);
         };
-        if(num1=9){
-            var node=document.createTextNode("L’ironia è sprecata quando si usa sugli stupidi.(Oscar Wilde)");
-        };
+        if(num1==9){
+            var Frase9 = "L'ironia è sprecata quando si usa sugli stupidi.(Oscar Wilde)";
+            var myImage = ["/static/num1_9.jpg", "/static/Oscar_Wilde.jpg"];
+            document.write(Frase9);
+            document.body.appendChild(myImage);
+        }
     }
 
     </script>
     <input type="button" onclick="casuale()" value="Genera casuale">
-    <p id="casuale"></p>
+<p id="casuale"></p>
 </body>
 </html>
