@@ -5,33 +5,8 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/Esercizio1_meteo.css') }}">
 </head>
 <body>
-    <script>
-        function casuale() {
-        num = Math.floor(Math.random()*10);
-        document.getElementById("casuale").innerHTML ="Numero casuale " + num;
-        if(num<=2){
-            alert('Pioggia');
-            var myImage = new Image;
-            myImage.src = "/static/images/1-200102162F9633.jpg";
-            document.body.appendChild(myImage);
-        };
-        if((num>2) && (num<=5)){
-            alert('Nuvoloso');
-            var myImage = new Image;
-            myImage.src = "/static/images/nuvoloso.jpg";
-            document.body.appendChild(myImage);
-        };
-        if(num>5){
-            alert('Sole');
-            var myImage = new Image;
-            myImage.src = "/static/images/sole.jpg";
-            document.body.appendChild(myImage);
-        }
-    }
+    <p>{{pr}}</p>
+    <img src="/static/images/{{tempo}}.jpg" alt="">
 
-    </script>
-    
-    <input type="button" onclick="casuale()" value="Genera casuale">
-<p id="casuale"></p>
 </body>
 </html>

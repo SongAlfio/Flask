@@ -1,4 +1,5 @@
 from flask import Flask, render_template
+import random as rd
 app = Flask(__name__)
 
 @app.route('/', methods=['GET'])
@@ -7,7 +8,19 @@ def home():
 
 @app.route('/meteo', methods=['GET'])
 def Meteo():
-    return render_template("Esercizio1_meteo.html")
+    n = rd.randint(0, 8)
+    if n <= 2:
+      previsione = 'pioggia'
+      tempo = 'pioggia'
+    else:
+      if n >= 3 & n < 5:
+        previsione = 'nuvoloso'
+        tempo = 'nuvoloso'
+      if n > 5:
+        previsione = 'sole'
+        tempo = 'sole'
+    return render_template("Esercizio1_meteo.html", pr=previsione, tempo=tempo)
+
 
 @app.route('/frasicelebri', methods=['GET'])
 def Frase():
