@@ -3,19 +3,10 @@
 <head>
     <title>Calendario</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/Esercizio1_calendario.css') }}">
-    <script type=text/javascript src="{{url_for('static', filename='js/Esercizio1_calendario.js') }}"></script>
+    
 </head>
 <body>
-    
-    <div class="container">
-        <h1 id="headline">Quanto manca ad arrivare la vacanza? </h1>
-        <div id="countdown">
-          <ul>
-            <li><span id="days"></span>days</li>
-            <li><span id="hours"></span>Hours</li>
-            <li><span id="minutes"></span>Minutes</li>
-          </ul>
-        </div>
-      </div>
+    <h1>Mancano {{vacanza}} giorni ad arrivare alla vacanza</h1>
+  
 </body>
 </html>
