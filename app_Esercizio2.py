@@ -20,20 +20,15 @@ def Dati_Utenti():
     password1 = request.args['Password1']
     sesso = request.args['Sex']
     Informazione_Utenti = dict()
-    if nome_utente != '':
-        if password != '':
-            if nome != '':
-                if sesso != '':
-                    if password1 != '':
-                        if password1 != password:
-                            return ('Riconfermare il password!')
-                        else:
-                            return Informazione_Utenti['nome_utente'] == nome_utente
-                            return Informazione_Utenti['password'] == password
-                            return Informazione_Utenti['nome'] == nome
-                            return Informazione_Utenti['sesso'] == sesso
-                            
-                            return render_template("Login.html",Informazione_Utenti = Informazione_Utenti)
+    if password1 != password:
+        return ('Riconfermare il password!')
+    else:
+        return Informazione_Utenti['nome_utente'] == nome_utente
+        return Informazione_Utenti['password'] == password
+        return Informazione_Utenti['nome'] == nome
+        return Informazione_Utenti['sesso'] == sesso
+                         
+        return render_template("Login.html",Informazione_Utenti = Informazione_Utenti)
 
 
 
