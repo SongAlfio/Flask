@@ -3,12 +3,13 @@
 #la conferma della password e il sesso
 #se le informazione sono corrette il sito salva le informazioni in una struttura dati opportuna(una lista di dizionario)
 #prevedere la possibilità di fare il login inserendo username e password.
-# #se sono corrette formare un messaggio diverso dal sesso
+#se sono corrette formare un messaggio diverso dal sesso
 from flask import Flask, render_template,request
 app = Flask(__name__)
+lista = []
 
 @app.route('/', methods=['GET'])
-def hello_world():
+def home():
     return render_template("Form2.html")
 
 
@@ -19,16 +20,29 @@ def Dati_Utenti():
     nome = request.args['Name']
     password1 = request.args['Password1']
     sesso = request.args['Sex']
-    Informazione_Utenti = dict()
+    
     if password1 != password:
-        return ('Riconfermare il password!')
+        return render_template('Errore.html', messaggio = 'Riconfermare il password')
     else:
-        return Informazione_Utenti['nome_utente'] == nome_utente
-        return Informazione_Utenti['password'] == password
-        return Informazione_Utenti['nome'] == nome
-        return Informazione_Utenti['sesso'] == sesso
-                         
-        return render_template("Login.html",Informazione_Utenti = Informazione_Utenti)
+        lista.append({'name':nome, 'username':nome_utente, 'password':password, 'sex':sesso})
+        print(lista)
+        return render_template("Login.html")
+
+@app.route('/login', methods=['GET'])
+def login():
+    username_log = request.args['username']
+    password_log = request.args['password']
+    
+    for utente in lista:
+        if utente['username'] == username_log and utente['password'] == password_log:
+            sesso = utente['sex']
+            if sesso == 'M':
+                return render_template('Welcome.html', nome = utente['name'], ciao = 'Benvenuto')
+            if sesso == 'F':
+                return render_template('Welcome.html', nome = utente['name'], ciao = 'Benvenuta')
+            if sesso == 'A':
+                return render_template('Welcome.html', nome = utente['name'], ciao = 'Ciao')
+    return render_template('Errore.html', messaggio = 'username o password errata')
 
 
 

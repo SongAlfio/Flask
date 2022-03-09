@@ -1,0 +1,22 @@
+<form action="/login" method = "GET">
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/Esercizio1_calendario.css') }}">
+    
+</head>
+<body>
+    <h1>Login</h1>
+
+    <form action="/action_page.php">
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" required><br><br>
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required><br><br>
+        <input type="submit" value="Submit">
+      </form>
+  
+</body>
+</html>
+</form>
