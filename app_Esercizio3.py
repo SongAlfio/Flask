@@ -7,18 +7,56 @@
 from flask import Flask, render_template,request
 app = Flask(__name__)
 lista = []
-geografia = {'Abruzzo': 'LAquila', 'Basilicata': 'Potenza', 'Calabria': 'Catanzaro', 'Campania': 'Napoli', 'Emilia-Romagna': 'Bologna', 'Friuli-Venezia Giulia': 'Trieste', 'Lazio': 'Roma', 'Liguria': 'Genova', 'Lombardia': 'Milano', 'Marche': 'Ancona', 'Molise': 'Campobasso', 'Piemonte': 'Torino', 'Puglia': 'Bari', 'Sardegna': 'Cagliari', 'Sicilia': 'Palermo', 'Toscana': 'Firenze', 'Trentino-Alto-Adige': 'Trento', 'Umbria': 'Perugia', 'Vale dAosta': 'Aosta', 'Veneto': 'Venezia'}
+geografia = {
+'Abruzzo': 'LAquila', 
+'Basilicata': 'Potenza', 
+'Calabria': 'Catanzaro', 
+'Campania': 'Napoli', 
+'Emilia-Romagna': 'Bologna', 
+'Friuli-Venezia Giulia': 'Trieste',
+'Lazio': 'Roma', 
+'Liguria': 'Genova', 
+'Lombardia': 'Milano', 
+'Marche': 'Ancona', 
+'Molise': 'Campobasso', 
+'Piemonte': 'Torino', 
+'Puglia': 'Bari', 
+'Sardegna': 'Cagliari', 
+'Sicilia': 'Palermo', 
+'Toscana': 'Firenze', 
+'Trentino-Alto-Adige': 'Trento', 
+'Umbria': 'Perugia', 
+'Vale dAosta': 'Aosta', 
+'Veneto': 'Venezia'
+}
+key_list=list(geografia.keys())
+value_list=list(geografia.values())
 
 @app.route('/', methods=['GET'])
 def home():
     return render_template("Form3.html")
 
 @app.route('/dati', methods=['GET'])
-def Regione():
-    Regione = request.args['Regione']
-    capoluogo = geografia[Regione]
-    return capoluogo
-    lista.append({'Regione':Regione, 'Capoluogo':capoluogo)
+def Luogo():
+    Luogo = request.args['Luogo']
+    scelta = request.args['luogo']
+    if scelta == 'C':
+        for Regione in range(len(geografia)) :
+            if Luogo == key_list[Regione]:
+                capoluogo = value_list[Regione]
+                return capoluogo
+                lista.append({'Regione':Luogo, 'Capoluogo':capoluogo})
+                print(lista)
+    else:
+        for Capoluogo in range(len(geografia)) :
+            if Luogo == value_list[Capoluogo]:
+                regione = key_list[Capoluogo]
+                return regione
+                lista.append({'Regione':Luogo, 'Capoluogo':regione})
+                print(lista)
+            
+    
+
 
 if __name__ == '__main__':
   app.run(host='0.0.0.0', port=3245, debug=True)
