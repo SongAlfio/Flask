@@ -1,0 +1,12 @@
+<form action="/dati" method = "GET">
+    
+        <label for="Regione">Scegli un regione:</label>
+        <select name="Regione" id="Regione" method="GET">
+            <!--  il codice sotto fa un ciclo  -->
+          {% for i in reg%}
+          <option value="{{i}}"SELECTED>{{i}}</option>
+          {%endfor%}
+          
+        </select>
+        <p><input type = "submit" value = "Submit" /></p>
+</form>
