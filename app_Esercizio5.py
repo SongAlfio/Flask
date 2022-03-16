@@ -3,24 +3,46 @@
 #gestire i dati in un dataframe, e salvare su un file csv
 
 from flask import Flask, render_template,request
-import pandas as pd
-from pandas import DataFrame, read_csv;
 app = Flask(__name__)
+import pandas as pd
 
-df = pd.DataFrame([])
-df.to_html(header="true", table_id="table")
+df1 = pd.DataFrame()
 @app.route('/', methods=['GET'])
 def home():
-    return render_template("Form5.html")
+    return render_template('Form5.html')
+
+@app.route('/inserisci', methods=['GET'])
+def inserisci():
+    return render_template('inserisci.html')
 
 @app.route('/dati', methods=['GET'])
-def squadre():
-    Team_name = request.args['Tname']
-    Fondazione = request.args['Year']
-    Citta = request.args['City']
-    df = df.append({'Team_name' : Team_name , 'Fondazione' : Fondazione, 'Città' : Citta} , ignore_index=True)
+def dati():
+    # inserimento dei dati nel file csv
+    # lettura dei dati dal form html 
+    squadra = request.args['Squadra']
+    anno = request.args['Anno']
+    citta = request.args['Citta']
+    # lettura dei dati daal file nel dataframe
+    df1 = pd.read_csv('/workspace/Flask/templates/dati.csv')
+    # aggiungiamo i nuovi dati nel dataframe 
+    nuovi_dati = {'squadra':squadra,'anno':anno,'citta':citta}
+    
+    df1 = df1.append(nuovi_dati,ignore_index=True)
+    # salviamo il dataframe sul file dati.csv
+    df1.to_csv('/workspace/Flask/templates/dati.csv', index=False)
+    return df1.to_html()
 
-    return render_template("Pandas.html")
+@app.route('/ricerca', methods=['GET'])
+def ricerca():
+    return render_template('ricerca.html')
+
+@app.route('/dati1', methods=['GET'])
+def dati1():
+    Cerca = request.args['Ricerca']
+    Elemento = request.args['Cerca']
+    df1 = pd.read_csv('/workspace/Flask/templates/dati.csv')
+    df2 = df1[df1[Cerca]==Elemento]
+    return df2.to_html()
 
 if __name__ == '__main__':
-  app.run(host='0.0.0.0', port=3245, debug=True)
+  app.run(host='0.0.0.0', port=3246, debug=True)
