@@ -1,0 +1,12 @@
+<form action="/dati_fontanelle" method = "GET">
+    
+    <label for="Scelta">Scegli un quartiere:</label>
+    <select name="Scelta" method="GET">
+        <!--  il codice sotto fa un ciclo  -->
+      {% for i in quartiere%}
+      <option value="{{i}}"SELECTED>{{i}}</option>
+      {%endfor%}
+      
+    </select>
+    <p><input type = "submit" value = "Submit" /></p>
+</form>
