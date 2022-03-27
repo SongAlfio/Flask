@@ -1,2 +1,11 @@
-<p>Cosa cerchi? <input type = "radio" name = "Regione" value="R" required/>Regione <input type = "radio" name = "Province" value="P" required/>Province </p>
-<p><input type = "submit" value = "Submit" /></p>
+
+<form action="/dati" method = "GET">
+    
+    <label for="regione">Scegli un regione:</label>
+        <!--  il codice sotto fa un ciclo  -->
+      {% for i in reg%}
+      <p><input type = "radio" name = "regione" value="{{i}}" required/>{{i}}</p>
+      {%endfor%}
+    
+    <p><input type = "submit" value = "Submit" /></p>
+</form>

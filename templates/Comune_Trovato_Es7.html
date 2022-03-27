@@ -1,0 +1,7 @@
+<form action="/Plot" method = "GET">
+    <label for="Comune_Trovato">Scegli un Comune:</label>
+        <!--  il codice sotto fa un ciclo  -->
+      {% for i in Comune_Trovato%}
+      <a href="/Plot" ><p name="{{Comune_Trovato}}" value="{{i}}">{{i}}</p></a>
+      {%endfor%}
+</form>

@@ -1,0 +1,12 @@
+<form action="/Comuni" method = "GET">
+    
+    <label for="provincia">Scegli un regione:</label>
+    <select name="provincia" id="provincia" method="GET">
+        <!--  il codice sotto fa un ciclo  -->
+      {% for i in Prov%}
+      <option value="{{i}}"SELECTED>{{i}}</option>
+      {%endfor%}
+      
+    </select>
+    <p><input type = "submit" value = "Submit" /></p>
+</form>
