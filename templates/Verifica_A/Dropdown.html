@@ -1,0 +1,12 @@
+<form action="/scelta_stazione" method = "GET">
+    
+    <label for="stazione">Scegli un regione:</label>
+    <select name="stazione" method="GET">
+        <!--  il codice sotto fa un ciclo  -->
+      {% for stazione in stazioni%}
+      <option value="{{stazione}}" >{{stazione}}</option>
+      {%endfor%}
+      
+    </select>
+    <p><input type = "submit" value = "Submit" /></p>
+</form>

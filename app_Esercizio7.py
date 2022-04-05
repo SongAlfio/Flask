@@ -22,21 +22,21 @@ Comune.to_html(header="true", table_id="table")
 @app.route('/', methods=['GET'])
 def homePage():
     reg = Regione['DEN_REG'].drop_duplicates().to_list()
-    return render_template("Form7.html",reg=reg)
+    return render_template("App_Esercizio7/Form7.html",reg=reg)
 
 @app.route('/dati', methods=['GET'])
 def regione():
     Regione_Scelto = request.args['regione']
     Trovato = Regione[Regione['DEN_REG']==Regione_Scelto]
     Provincia = Province[Province.within(Trovato.unary_union)]
-    return render_template("Provincia_Es7.html",Prov = Provincia['DEN_UTS'])
+    return render_template("App_Esercizio7/Provincia_Es7.html",Prov = Provincia['DEN_UTS'])
 
 @app.route('/Comuni', methods=['GET'])
 def comune():
     Provincia_Scelto = request.args['provincia']
     Trovato1 = Province[Province['DEN_UTS'] == Provincia_Scelto]
     Comune_Trovato = Comune[Comune.within(Trovato1.unary_union)]
-    return render_template("Comune_Trovato_Es7.html",Comune_Trovato = Comune_Trovato['COMUNE'])
+    return render_template("App_Esercizio7/Comune_Trovato_Es7.html",Comune_Trovato = Comune_Trovato['COMUNE'])
 
 @app.route('/Plot', methods=['GET'])
 def Plot():
