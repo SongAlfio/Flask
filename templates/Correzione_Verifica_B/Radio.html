@@ -1,12 +1,10 @@
 <form action="/elenco" method = "GET">
     
     <label for="Scelta">Scegli un quartiere:</label>
-    <select name="Scelta" method="GET">
         <!--  il codice sotto fa un ciclo  -->
-      {% for i in quartiere%}
-      <input type="button" name="radio" value="i">
+      {% for i in quartieri%}
+      <input type="radio" name="radio" value="{{i}}"/>{{i}}
       {%endfor%}
       
-    </select>
     <p><input type = "submit" value = "Submit" /></p>
 </form>
