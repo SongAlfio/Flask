@@ -11,13 +11,13 @@ matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 
 # 1. Avere il numero di stazioni per ogni municipio (in ordine crescente sul numero del municipio) e il grafico corrispondente
-Stazioni = pd.read_csv('/workspace/Flask/templates/Verifica_A/Radio.csv',sep=";")
+Stazioni = pd.read_csv('/workspace/Flask/templates/Correzione_Verifica_A/Radio.csv',sep=";")
 Quartieri = gpd.read_file('/workspace/Flask/Quartieri.zip')
-Stazioni_Geo = gpd.read_file('/workspace/Flask/templates/Verifica_A/Stazioni_Radio.geojson')
+Stazioni_Geo = gpd.read_file('/workspace/Flask/templates/Correzione_Verifica_A/Stazioni_Radio.geojson')
 risultato = Stazioni.groupby('MUNICIPIO')['OPERATORE'].count().reset_index()
 @app.route('/', methods=['GET'])
 def homepage():
-    return render_template("Verifica_A/home1.html")
+    return render_template("Correzione_Verifica_A/home1.html")
 
 @app.route('/selezione', methods=['GET'])
 def selezione():
@@ -32,7 +32,7 @@ def selezione():
 def numero():
 #numero stazioni per ogni municipio
     
-    return render_template("Verifica_A/Elenco.html",risultato = risultato.to_html())
+    return render_template("Correzione_Verifica_A/Elenco.html",risultato = risultato.to_html())
 
 @app.route('/grafico', methods=['GET'])
 def grafico():
@@ -52,11 +52,12 @@ def grafico():
 def input():
 #input quartiere
     
-    return render_template("Verifica_A/Input.html")
+    return render_template("Correzione_Verifica_A/Input.html")
 
 @app.route('/ricerca', methods=['GET'])
 def ricerca():
 #cercare il quartiere
+    global Stazioni_Radio, Quartiere_Trovato
     Quartiere_Cercato = request.args['ricerca']
     Quartiere_Trovato = Quartieri[Quartieri['NIL'].str.contains(Quartiere_Cercato)]
     Stazioni_Radio = Stazioni_Geo[Stazioni_Geo.within(Quartiere_Trovato.unary_union)]
@@ -67,14 +68,14 @@ def ricerca():
     #output = io.BytesIO()
     #FigureCanvas(fig).print_png(output)
     #return Response(output.getvalue(), mimetype='image/png')
-    return render_template('Verifica_A/Elenco1.html',risultato = Stazioni_Radio.to_html())
+    return render_template('Correzione_Verifica_A/Elenco1.html',risultato = Stazioni_Radio.to_html())
     
 @app.route('/mappa', methods=['GET'])
 def mappa():
     fig, ax = plt.subplots(figsize = (12,8))
 
     Stazioni_Radio.to_crs(epsg=3857).plot(ax=ax, alpha=0.5, facecolor='k')
-    Quartiere_Cercato.to_crs(epsg=3857).plot(ax=ax, alpha=0.5, facecolor='k')
+    Quartiere_Trovato.to_crs(epsg=3857).plot(ax=ax, alpha=0.5, facecolor='k')
     contextily.add_basemap(ax=ax)
     output = io.BytesIO()
     FigureCanvas(fig).print_png(output)
@@ -86,7 +87,7 @@ def dropdown():
     #oppure possiamo fare Nomi_Stazioni = list(set(Nomi_Stazioni))
     Nomi_Stazioni.sort()
     
-    return render_template('Verifica_A/Dropdown.html',stazioni = Nomi_Stazioni)
+    return render_template('Correzione_Verifica_A/Dropdown.html',stazioni = Nomi_Stazioni)
 
 @app.route('/scelta_stazione', methods=['GET'])
 def scelta():
@@ -94,13 +95,13 @@ def scelta():
     Stazione_Scelta = request.args['stazione']
     Stazione_Utente = Stazioni_Geo[Stazioni_Geo.OPERATORE==Stazione_Scelta]
     quartiere = Quartieri[Quartieri.contains(Stazione_Utente.geometry.squeeze())]
-    return render_template('Verifica_A/Lista_Stazione.html',quartiere = quartiere['NIL'])
+    return render_template('Correzione_Verifica_A/Lista_Stazione.html',quartiere = quartiere['NIL'])
 
 @app.route('/mappa_quartiere', methods=['GET'])
 def mappa_quartiere():
     fig, ax = plt.subplots(figsize = (12,8))
 
-    Stazioni_Utente.to_crs(epsg=3857).plot(ax=ax, alpha=0.5, facecolor='k')
+    Stazione_Utente.to_crs(epsg=3857).plot(ax=ax, alpha=0.5, facecolor='k')
     quartiere.to_crs(epsg=3857).plot(ax=ax, alpha=0.5, facecolor='k')
     contextily.add_basemap(ax=ax)
     output = io.BytesIO()
