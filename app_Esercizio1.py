@@ -8,7 +8,7 @@ app = Flask(__name__)
 
 @app.route('/', methods=['GET'])
 def hello_world():
-    return render_template("Form1.html")
+    return render_template("app_Esercizio1/Form1.html")
 
 @app.route('/data', methods=['GET'])
 def Dati_Utenti():
@@ -16,7 +16,7 @@ def Dati_Utenti():
     password = request.args['Password']
     if nome == 'admin':
         if password == '123xxx##':
-            return render_template("Welcome.html",nome = nome)
+            return render_template("app_Esercizio1/Welcome.html",nome = nome)
         else:
             return ('Password sbagliato')
     else:

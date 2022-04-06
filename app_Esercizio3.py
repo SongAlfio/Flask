@@ -34,7 +34,7 @@ value_list=list(geografia.values())
 
 @app.route('/', methods=['GET'])
 def home():
-    return render_template("Form3.html")
+    return render_template("app_Esercizio3/Form3.html")
 
 @app.route('/dati', methods=['GET'])
 def Luogo():

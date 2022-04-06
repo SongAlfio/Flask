@@ -21,7 +21,7 @@ Fontanelle = gpd.read_file('/workspace/Flask/Fontanelle.zip')
 
 @app.route('/', methods=['GET'])
 def homePage():
-    return render_template('Form6.html')
+    return render_template('app_Esercizio6/Form6.html')
 
 @app.route('/quartieri', methods=['GET'])
 def quartieri1():
@@ -70,18 +70,18 @@ def Visualizza_dati():
 
 @app.route('/ricerca', methods=['GET'])
 def ricerca():
-    return render_template('ricerca_Es6.html')
+    return render_template('app_Esercizio6/ricerca_Es6.html')
 
 @app.route('/scelta', methods=['GET'])
 def scelta():
     quartiere = Quartiere['NIL'].drop_duplicates().to_list()
-    return render_template('scelta_Es6.html',quartiere=quartiere)
+    return render_template('app_Esercizio6/scelta_Es6.html',quartiere=quartiere)
 
 @app.route('/fontanelle', methods=['GET'])
 def fontanelle():
     quartiere = Quartiere['NIL'].drop_duplicates().to_list()
     quartiere.sort()
-    return render_template('fontanelle_Es6.html',quartiere=quartiere)
+    return render_template('app_Esercizio6/fontanelle_Es6.html',quartiere=quartiere)
 
 
 @app.route('/dati_ricerca', methods=['GET'])

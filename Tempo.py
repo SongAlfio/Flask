@@ -11,6 +11,6 @@ def hello_world():
     col='Green'
   else:
     col='Red'
-  return render_template('Risposta.html',colore=col,min = minuti)
+  return render_template('Tempo/Risposta.html',colore=col,min = minuti)
 if __name__ == '__main__':
   app.run(host='0.0.0.0', port=3245, debug=True)

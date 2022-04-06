@@ -10,7 +10,7 @@ lista = []
 
 @app.route('/', methods=['GET'])
 def home():
-    return render_template("Form2.html")
+    return render_template("app_Esercizio2/Form2.html")
 
 
 @app.route('/data', methods=['GET'])
@@ -22,11 +22,11 @@ def Dati_Utenti():
     sesso = request.args['Sex']
     
     if password1 != password:
-        return render_template('Errore.html', messaggio = 'Riconfermare il password')
+        return render_template('app_Esercizio2/Errore_Es2.html', messaggio = 'Riconfermare il password')
     else:
         lista.append({'name':nome, 'username':nome_utente, 'password':password, 'sex':sesso})
         print(lista)
-        return render_template("Login.html")
+        return render_template("app_Esercizio2/Login_Es2.html")
 
 @app.route('/login', methods=['GET'])
 def login():
@@ -42,7 +42,7 @@ def login():
                 return render_template('Welcome.html', nome = utente['name'], ciao = 'Benvenuta')
             if sesso == 'A':
                 return render_template('Welcome.html', nome = utente['name'], ciao = 'Ciao')
-    return render_template('Errore.html', messaggio = 'username o password errata')
+    return render_template('app_Esercizio2/Errore_Es2.html', messaggio = 'username o password errata')
 
 
 

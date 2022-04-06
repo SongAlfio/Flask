@@ -13,13 +13,13 @@ df.to_html(header="true", table_id="table")
 @app.route('/', methods=['GET'])
 def home():
     reg = df['nome_area'].drop_duplicates().to_list()
-    return render_template("Form4.html",reg=reg)
+    return render_template("app_Esercizio4/Form4.html",reg=reg)
 
 @app.route('/dati', methods=['GET'])
 def covid19():
     Regione = request.args['Regione']
     df1 = df[df['nome_area']==Regione]
-    return render_template('Pandas.html',  tables=[df1.to_html(classes='data')], titles=df1.columns.values)
+    return render_template('app_Esercizio4/Pandas.html',  tables=[df1.to_html(classes='data')], titles=df1.columns.values)
 
 if __name__ == '__main__':
   app.run(host='0.0.0.0', port=3245, debug=True)

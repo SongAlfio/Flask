@@ -9,11 +9,11 @@ import pandas as pd
 df1 = pd.DataFrame()
 @app.route('/', methods=['GET'])
 def home():
-    return render_template('Form5.html')
+    return render_template('app_Esercizio5/Form5.html')
 
 @app.route('/inserisci', methods=['GET'])
 def inserisci():
-    return render_template('inserisci.html')
+    return render_template('app_Esercizio5/inserisci_Es5.html')
 
 @app.route('/dati', methods=['GET'])
 def dati():
@@ -34,13 +34,13 @@ def dati():
 
 @app.route('/ricerca', methods=['GET'])
 def ricerca():
-    return render_template('ricerca.html')
+    return render_template('app_Esercizio5/ricerca_Es5.html')
 
 @app.route('/dati1', methods=['GET'])
 def dati1():
     Cerca = request.args['Ricerca']
     Elemento = request.args['Cerca']
-    df1 = pd.read_csv('/workspace/Flask/templates/dati.csv')
+    df1 = pd.read_csv('/workspace/Flask/templates/app_Esercizio5/dati.csv')
     df2 = df1[df1[Cerca]==Elemento]
     return df2.to_html()
 
