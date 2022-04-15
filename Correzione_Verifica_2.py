@@ -29,13 +29,15 @@ def area():
     Provincia_Cercato = request.args['Provincia']
     Provincia_Trovato = Provincia[Provincia['DEN_UTS'] == Provincia_Cercato]
     Comuni_Trovati = Comune[Comune.within(Provincia_Trovato.unary_union)]
-    area = Provincia_Trovato.geometry.area()
+    area = Provincia_Trovato.geometry.area.sum()/ 10**6
     return render_template("Correzione_Verifica_2/area.html", area = area)
 
+@app.route('/mappa', methods=['GET'])
+def mappa():
     fig, ax = plt.subplots(figsize = (12,8))
 
-    Provincia_Trovato.to_crs(epsg=3857).plot(ax=ax, facecolor='k')
-    Comuni_Trovati.to_crs(epsg=3857).plot(ax=ax, facecolor='r')
+    Comuni_Trovati.to_crs(epsg=3857).plot(ax=ax, edgecolor='r', facecolor = 'none')
+    Provincia_Trovato.to_crs(epsg=3857).plot(ax=ax, edgecolor='k', facecolor = 'none')
     contextily.add_basemap(ax=ax)
     output = io.BytesIO()
     FigureCanvas(fig).print_png(output)
