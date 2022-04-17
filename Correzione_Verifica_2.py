@@ -25,11 +25,11 @@ def link1():
 
 @app.route('/area', methods=['GET'])
 def area():
-    global Provincia_Trovato, Comuni_Trovati
+    global Provincia_Trovata, Comuni_Trovati
     Provincia_Cercato = request.args['Provincia']
-    Provincia_Trovato = Provincia[Provincia['DEN_UTS'] == Provincia_Cercato]
-    Comuni_Trovati = Comune[Comune.within(Provincia_Trovato.unary_union)]
-    area = Provincia_Trovato.geometry.area.sum()/ 10**6
+    Provincia_Trovata = Provincia[Provincia['DEN_UTS'] == Provincia_Cercato]
+    Comuni_Trovati = Comune[Comune.within(Provincia_Trovata.unary_union)]
+    area = Provincia_Trovata.geometry.area.sum()/ 10**6
     return render_template("Correzione_Verifica_2/area.html", area = area)
 
 @app.route('/mappa', methods=['GET'])
@@ -37,7 +37,42 @@ def mappa():
     fig, ax = plt.subplots(figsize = (12,8))
 
     Comuni_Trovati.to_crs(epsg=3857).plot(ax=ax, edgecolor='r', facecolor = 'none')
-    Provincia_Trovato.to_crs(epsg=3857).plot(ax=ax, edgecolor='k', facecolor = 'none')
+    Provincia_Trovata.to_crs(epsg=3857).plot(ax=ax, edgecolor='k', facecolor = 'none')
+    contextily.add_basemap(ax=ax)
+    output = io.BytesIO()
+    FigureCanvas(fig).print_png(output)
+    return Response(output.getvalue(), mimetype='image/png')
+
+@app.route('/link2', methods=['GET'])
+def link2():
+    REG = Regione['DEN_REG'].drop_duplicates().to_list()
+    REG.sort()
+    return render_template("Correzione_Verifica_2/link2.html", REG = REG)
+
+@app.route('/link2_1', methods=['GET'])
+def link2_1():
+    Regione_Scelto = request.args['Regione']
+    Regione_Trovato = Regione[Regione['DEN_REG']==Regione_Scelto]
+    Provinci_Trovati = Provincia[Provincia.within(Regione_Trovato.unary_union)]
+    Provinci_Trovati = Provinci_Trovati['DEN_UTS'].drop_duplicates().to_list()
+    Provinci_Trovati.sort()
+    return render_template("Correzione_Verifica_2/link2_1.html", Prov = Provinci_Trovati)
+
+@app.route('/area1', methods=['GET'])
+def area1():
+    global Provincia_Trovata1, Comuni_Trovati1
+    Provincia_Scelta = request.args['Provincia']
+    Provincia_Trovata1 = Provincia[Provincia['DEN_UTS'] == Provincia_Scelta]
+    Comuni_Trovati1 = Comune[Comune.within(Provincia_Trovata1.unary_union)]
+    area = Provincia_Trovata1.geometry.area.sum()/ 10**6
+    return render_template("Correzione_Verifica_2/area1.html", area = area)
+
+@app.route('/mappa1', methods=['GET'])
+def mappa1():
+    fig, ax = plt.subplots(figsize = (12,8))
+
+    Comuni_Trovati1.to_crs(epsg=3857).plot(ax=ax, edgecolor='r', facecolor = 'none')
+    Provincia_Trovata1.to_crs(epsg=3857).plot(ax=ax, edgecolor='k', facecolor = 'none')
     contextily.add_basemap(ax=ax)
     output = io.BytesIO()
     FigureCanvas(fig).print_png(output)
