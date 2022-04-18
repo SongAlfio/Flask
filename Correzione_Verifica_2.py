@@ -80,15 +80,15 @@ def mappa1():
 
 @app.route('/link3', methods=['GET'])
 def link3():
-    Rip = Ripartizione['DEN_REG'].drop_duplicates().to_list()
+    Rip = Ripartizione['DEN_RIP'].drop_duplicates().to_list()
     Rip.sort()
     return render_template("Correzione_Verifica_2/link3.html", Rip=Rip)
 
 @app.route('/link3_1', methods=['GET'])
 def link3_1():
     Ripartizione_Scelto = request.args['Ripartizione']
-    Ripartizione_Trovato = Ripartizione[Ripartizione['DEN_REG']==Ripartizione_Scelto]
-    Provinci_Trovati = Provincia[Provincia.within(Regione_Trovato.unary_union)]
+    Ripartizione_Trovato = Ripartizione[Ripartizione['DEN_RIP']==Ripartizione_Scelto]
+    Provinci_Trovati = Provincia[Provincia.within(Ripartizione_Trovato.unary_union)]
     Provinci_Trovati = Provinci_Trovati['DEN_UTS'].drop_duplicates().to_list()
     Provinci_Trovati.sort()
     return render_template("Correzione_Verifica_2/link3_1.html", Prov = Provinci_Trovati)
@@ -97,9 +97,9 @@ def link3_1():
 def area2():
     global Provincia_Trovata2, Comuni_Trovati2
     Provincia_Scelta = request.args['Provincia']
-    Provincia_Trovata1 = Provincia[Provincia['DEN_UTS'] == Provincia_Scelta]
-    Comuni_Trovati1 = Comune[Comune.within(Provincia_Trovata1.unary_union)]
-    area = Provincia_Trovata1.geometry.area.sum()/ 10**6
+    Provincia_Trovata2 = Provincia[Provincia['DEN_UTS'] == Provincia_Scelta]
+    Comuni_Trovati2 = Comune[Comune.within(Provincia_Trovata2.unary_union)]
+    area = Provincia_Trovata2.geometry.area.sum()/ 10**6
     return render_template("Correzione_Verifica_2/area2.html", area = area)
 
 @app.route('/mappa2', methods=['GET'])
