@@ -78,5 +78,40 @@ def mappa1():
     FigureCanvas(fig).print_png(output)
     return Response(output.getvalue(), mimetype='image/png')
 
+@app.route('/link3', methods=['GET'])
+def link3():
+    Rip = Ripartizione['DEN_REG'].drop_duplicates().to_list()
+    Rip.sort()
+    return render_template("Correzione_Verifica_2/link3.html", Rip=Rip)
+
+@app.route('/link3_1', methods=['GET'])
+def link3_1():
+    Ripartizione_Scelto = request.args['Ripartizione']
+    Ripartizione_Trovato = Ripartizione[Ripartizione['DEN_REG']==Ripartizione_Scelto]
+    Provinci_Trovati = Provincia[Provincia.within(Regione_Trovato.unary_union)]
+    Provinci_Trovati = Provinci_Trovati['DEN_UTS'].drop_duplicates().to_list()
+    Provinci_Trovati.sort()
+    return render_template("Correzione_Verifica_2/link3_1.html", Prov = Provinci_Trovati)
+
+@app.route('/area2', methods=['GET'])
+def area2():
+    global Provincia_Trovata2, Comuni_Trovati2
+    Provincia_Scelta = request.args['Provincia']
+    Provincia_Trovata1 = Provincia[Provincia['DEN_UTS'] == Provincia_Scelta]
+    Comuni_Trovati1 = Comune[Comune.within(Provincia_Trovata1.unary_union)]
+    area = Provincia_Trovata1.geometry.area.sum()/ 10**6
+    return render_template("Correzione_Verifica_2/area2.html", area = area)
+
+@app.route('/mappa2', methods=['GET'])
+def mappa2():
+    fig, ax = plt.subplots(figsize = (12,8))
+
+    Comuni_Trovati2.to_crs(epsg=3857).plot(ax=ax, edgecolor='r', facecolor = 'none')
+    Provincia_Trovata2.to_crs(epsg=3857).plot(ax=ax, edgecolor='k', facecolor = 'none')
+    contextily.add_basemap(ax=ax)
+    output = io.BytesIO()
+    FigureCanvas(fig).print_png(output)
+    return Response(output.getvalue(), mimetype='image/png')
+
 if __name__ == '__main__':
   app.run(host='0.0.0.0', port=3245, debug=True)
