@@ -13,18 +13,18 @@ import matplotlib.pyplot as plt
 
 Stazioni = pd.read_csv('/workspace/Flask/templates/Correzione_Verifica_B/Radio.csv',sep=";")
 Quartieri = gpd.read_file('/workspace/Flask/Quartieri.zip')
-Stazioni_Geo = gpd.read_file('/workspace/Flask/templates/Correzione_Verifica_B/Stazioni_Radio.geojson')
+Stazioni_Geo = gpd.read_file('/workspace/Flask/templates/Correzione_Verifica_1B/Stazioni_Radio.geojson')
 risultato = Stazioni.groupby('MUNICIPIO')['OPERATORE'].count().reset_index()
 
 @app.route('/', methods=['GET'])
 def homepage():
-    return render_template("Correzione_Verifica_B/home.html")
+    return render_template("Correzione_Verifica_1B/home.html")
 
 @app.route('/radio', methods=['GET'])
 def radio():
     Quartieri1 = Quartieri['NIL'].drop_duplicates().to_list()
     Quartieri1.sort()
-    return render_template("Correzione_Verifica_B/Radio.html", quartieri = Quartieri1)
+    return render_template("Correzione_Verifica_1B/Radio.html", quartieri = Quartieri1)
 
 @app.route('/elenco', methods=['GET'])
 def elenco():
@@ -32,11 +32,11 @@ def elenco():
     Quartiere_Trovato = Quartieri[Quartieri['NIL'] == Quartiere]
     Stazioni_Radio = Stazioni_Geo[Stazioni_Geo.within(Quartiere_Trovato.unary_union)]
 
-    return render_template('Correzione_Verifica_B/Elenco.html',Radio_Trovati = Stazioni_Radio['OPERATORE'].to_list())
+    return render_template('Correzione_Verifica_1B/Elenco.html',Radio_Trovati = Stazioni_Radio['OPERATORE'].to_list())
 
 @app.route('/input', methods=['GET'])
 def input():
-    return render_template("Correzione_Verifica_A/Input.html")
+    return render_template("Correzione_Verifica_1B/Input.html")
 
 @app.route('/ricerca', methods=['GET'])
 def ricerca():
@@ -53,7 +53,7 @@ def ricerca():
 
 @app.route('/numero', methods=['GET'])
 def numero():
-    return render_template("Correzione_Verifica_B/Elenco1.html",risultato = risultato.to_html())
+    return render_template("Correzione_Verifica_1B/Elenco1.html",risultato = risultato.to_html())
 
 @app.route('/grafico', methods=['GET'])
 def grafico():

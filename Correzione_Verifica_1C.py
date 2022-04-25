@@ -17,7 +17,7 @@ Quartieri = gpd.read_file('/workspace/Flask/Quartieri.zip')
 
 @app.route('/', methods=['GET'])
 def homepage():
-    return render_template("Correzione_Verifica_C/home.html")
+    return render_template("Correzione_Verifica_1C/home.html")
 
 @app.route('/selezione', methods=['GET'])
 def selezione():
@@ -32,7 +32,7 @@ def selezione():
 
 @app.route('/input', methods=['GET'])
 def input():
-    return render_template("Correzione_Verifica_C/Input.html")
+    return render_template("Correzione_Verifica_1C/Input.html")
 
 @app.route('/elenco', methods=['GET'])
 def elenco():
@@ -41,11 +41,11 @@ def elenco():
     Bus_Tram1 = Bus_Tram[(Bus_Tram['lung_km'] < L_Massima) & (Bus_Tram['lung_km'] > L_Minima)]
     Bus_Tram1 = Bus_Tram1['linea'].drop_duplicates().to_list()
     Bus_Tram1.sort(key=int)
-    return render_template("Correzione_Verifica_C/Elenco.html",Bus_Tram = Bus_Tram1)
+    return render_template("Correzione_Verifica_1C/Elenco.html",Bus_Tram = Bus_Tram1)
 
 @app.route('/input1', methods=['GET'])
 def input1():
-    return render_template("Correzione_Verifica_C/Input1.html")
+    return render_template("Correzione_Verifica_1C/Input1.html")
 
 @app.route('/elenco1', methods=['GET'])
 def elenco1():
@@ -54,13 +54,13 @@ def elenco1():
     Bus_Tram1 = Bus_Tram[Bus_Tram.intersects(Quartiere_Trovato.unary_union)]
     Bus_Tram1 = Bus_Tram1['linea'].drop_duplicates().to_list()
     Bus_Tram1.sort(key=int)
-    return render_template("Correzione_Verifica_C/Elenco.html",Bus_Tram = Bus_Tram1)
+    return render_template("Correzione_Verifica_1C/Elenco.html",Bus_Tram = Bus_Tram1)
 
 @app.route('/scelta', methods=['GET'])
 def scelta():
     Bus_Tram1 = Bus_Tram['linea'].drop_duplicates().to_list()
     Bus_Tram1.sort(key=int)
-    return render_template("Correzione_Verifica_C/Scelta.html",linea = Bus_Tram1)
+    return render_template("Correzione_Verifica_1C/Scelta.html",linea = Bus_Tram1)
 
 @app.route('/linea', methods=['GET'])
 def Plot():
