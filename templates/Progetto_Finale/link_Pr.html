@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>HTML basics</title>
+        <meta name="viewport" content="width-device-width,initial-scale=1.0">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/link_Pr.css')}}">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.js"></script>
+        <style>
+            *{margin:0; padding:0;  font-family:Helvetica, Geneva, Arial,SunSans-Regular, sans-serif;
+    box-sizing:border-box;}
+    
+    .inner-width{max-width:1200px; padding:0 2px;}
+    .testimonial-section{width: 134vh; transform: translateX(30vh);}
+    .testimonial-section h1{text-align:center; color:#333;margin:30vh ;min-width: 100%;}
+    
+    .testimonial{background:#f1f1f1; padding:40px; overflow:hidden; border-radius:8px; cursor:pointer;}
+    
+    .test-info{display:flex; height:60px; align-items:center;}
+    
+    .test-name{font-size:12px; color:#333;}
+    
+    .test-name span{display:block; font-size:14px; font-weight:700; color:#3498db;}
+
+    h1{font-size: x-small; transform: translateX(-48vh);}
+
+    .border{margin:40px auto;}
+
+        </style>
+    </head>
+    <body id="primo_strato"style=" font-family: 'Nunito', sans-serif;background-color: #1d1e61">
+
+      <div id="cio" class ="testimonial-section" style="border-radius: 40px; background:rgba(0,0,0,0.4);">
+       <div class="inner-width">
+        <pre><h1> clicca qui è vedrai il nostro operato</h1></pre>
+        <div class="border" style="color: aliceblue;"></div>
+        
+        <div class="slides owl-carousel">
+            <div class="testimonial">
+                <div id="si"class="test-info">
+                    <div class="test-name">
+                        <span>Ristor</span>
+                        img
+                    </div>
+                </div>
+                <pre>
+                    
+    informazioni relative alle nuove 
+    usite e commenti su Anime/Manga chi
+    ti potrebbero interessare
+                </pre>
+            </div>
+            <div class="testimonial">
+                <div class="test-info">
+                    <div class="test-name">
+                        <span>grafici</span>
+                        img
+                    </div>
+                </div>
+                <pre>
+                           
+    informazioni relative alle nuove 
+    usite e commenti su Anime/Manga chi
+    ti potrebbero interessare
+                </pre>
+            </div>
+            <div class="testimonial">
+                <div class="test-info">
+                    <div class="test-name">
+                        <span>Anime</span>
+                        img
+                    </div>
+                </div>
+                <pre>
+     
+ informazioni relative alle nuove usite 
+    e commenti su Anime/Manga che ti
+        potrebbero interessare
+                </pre>
+            </div>
+            <div class="testimonial" >
+                <div class="test-info">
+                    <div class="test-name">
+                        <span>Anime</span>
+                        img
+                    </div>
+                </div>
+                <pre>
+                    
+                    
+ informazioni relative alle nuove usite e commenti
+ su Anime/Manga che ti potrebbero interessare
+                </pre>
+            </div>
+        </div>
+       </div>
+   
+    </body>
+    <script type="text/javascript">
+        $(".owl-carousel").owlCarousel({
+            margin:10,
+            responsiveClass:true,
+            responsive:{
+                0:{items:1},
+                680:{items:2},
+                960:{items:3},
+                1.240:{items:4}
+              }
+            });
+    </script>
+</html>

@@ -5,7 +5,7 @@ app = Flask(__name__)
 
 @app.route('/', methods=['GET'])
 def home():
-    return render_template("Esercizio1.html")
+    return render_template("Esercizio1/Esercizio1.html")
 
 @app.route('/meteo', methods=['GET'])
 def Meteo():
@@ -20,7 +20,7 @@ def Meteo():
       if n > 5:
         previsione = 'sole'
         tempo = 'sole'
-    return render_template("Esercizio1_meteo.html", pr = previsione, tp = tempo)
+    return render_template("Esercizio1/Esercizio1_meteo.html", pr = previsione, tp = tempo)
 
 
 @app.route('/frasicelebri', methods=['GET'])
@@ -61,14 +61,14 @@ def Frase():
       image = 'Mark_Twain'
     if n1 == 9:
       image = 'Oscar_Wilde'
-  return render_template("Esercizio1_frase.html",frase = frase,immagini = image)
+  return render_template("Esercizio1/Esercizio1_frase.html",frase = frase,immagini = image)
 
 @app.route('/quantomanca', methods=['GET'])
 def Calendario():
   oggi = datetime.now()
   vacanza = datetime(day=8, month=6, year=2022)
   differenza = vacanza - oggi
-  return render_template("Esercizio1_calendario.html", vacanza = differenza.days)    
+  return render_template("Esercizio1/Esercizio1_calendario.html", vacanza = differenza.days)    
 
 if __name__ == '__main__':
   app.run(host='0.0.0.0', port=3245, debug=True)
