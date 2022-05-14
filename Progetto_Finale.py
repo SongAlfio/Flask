@@ -20,6 +20,10 @@ Ristoranti = Ristoranti.dropna(subset=['denominazione_pe','LONG_WGS84','LAT_WGS8
 def homepage():
     return render_template("Progetto_Finale/sito1nice.html")
 
+@app.route('/Home', methods=['GET'])
+def home():
+    return render_template("Progetto_Finale/link_Pr.html")
+    
 # Visualizzazione di milano e le occupazioni
 @app.route('/mappa_milano', methods=['GET'])
 def mappa_milano():
