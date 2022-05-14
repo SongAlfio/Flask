@@ -18,7 +18,7 @@ Ristoranti = Ristoranti.dropna(subset=['denominazione_pe','LONG_WGS84','LAT_WGS8
 
 @app.route('/', methods=['GET'])
 def homepage():
-    return render_template("Progetto_Finale/sito1nice.html")
+    return render_template("Progetto_Finale/home.html")
 
 @app.route('/Home', methods=['GET'])
 def home():
@@ -88,13 +88,14 @@ def Mappa_Municipio_Ristoranti():
     Municipio = request.args['Municipio']
     Municipio_Trovato = Ristoranti[Ristoranti['MUNICIPIO'] == Municipio]
 
-    fig, ax = plt.subplots(figsize = (12,8))
-
-    Municipio_Trovato.to_crs(epsg=3857).plot(ax=ax, facecolor='none', edgecolor = 'k')
-    contextily.add_basemap(ax=ax)
-    output = io.BytesIO()
-    FigureCanvas(fig).print_png(output)
-    return Response(output.getvalue(), mimetype='image/png')
+    m = folium.Map(location=[45.500085,9.234780], zoom_start=12)
+    for _, row in Municipio_Trovato.iterrows():
+            folium.Marker(
+                location=[row["LAT_WGS84"], row["LONG_WGS84"]],
+                popup=row['denominazione_pe'],
+                icon=folium.map.Icon(color='green')
+            ).add_to(m)
+    return m._repr_html_()
 
 # l'utente inserisce un tipo di posto che vuole andare(bar; ristorante...)
 @app.route('/Cerca_Posto', methods=['GET'])
@@ -106,13 +107,14 @@ def Mappa_Posto():
     Posto = request.args['Posto']
     Posto_Trovato = Ristoranti[Ristoranti['denominazione_pe'].str.contains(Posto)]
 
-    fig, ax = plt.subplots(figsize = (12,8))
-
-    Municipio_Trovato.to_crs(epsg=3857).plot(ax=ax, facecolor='none', edgecolor = 'k')
-    contextily.add_basemap(ax=ax)
-    output = io.BytesIO()
-    FigureCanvas(fig).print_png(output)
-    return Response(output.getvalue(), mimetype='image/png')
+    m = folium.Map(location=[45.500085,9.234780], zoom_start=12)
+    for _, row in Posto_Trovato.iterrows():
+            folium.Marker( 
+                location=[row["LAT_WGS84"], row["LONG_WGS84"]],
+                popup=row['denominazione_pe'],
+                icon=folium.map.Icon(color='green')
+            ).add_to(m)
+    return m._repr_html_()
 
 @app.route('/Menu_Ristorante', methods=['GET'])
 def Menu_Ristorante():
@@ -137,6 +139,27 @@ def Menu_Ristorante():
   #  FigureCanvas(fig).print_png(output)
   #  return Response(output.getvalue(), mimetype='image/png')
 
+# l'utente inserisce il nome che vuole cercare e anche il posto che sta, trova tutti i ristoranti in quel posto
+@app.route('/Cerca_Ristoranti', methods=['GET'])
+def Cerca_Ristoranti():
+    return render_template("Progetto_Finale/Cerca_Ristoranti.html")
+
+@app.route('/Mappa_Ristoranti', methods=['GET'])
+def Mappa_Ristoranti():
+    Ristoranti = request.args['Ristoranti']
+    Posto = request.args['Posto']
+    Ristoranti = Ristoranti[Ristoranti['denominazione_pe'].str.contains(Posto)]
+    Quartieri_Trovato = Quartieri[Quartieri['NIL'] == Posto]
+    Municipio_Trovato = Ristoranti[Ristoranti['MUNICIPIO'] == Municipio]
+
+    m = folium.Map(location=[45.500085,9.234780], zoom_start=12)
+    for _, row in Posto_Trovato.iterrows():
+            folium.Marker( 
+                location=[row["LAT_WGS84"], row["LONG_WGS84"]],
+                popup=row['denominazione_pe'],
+                icon=folium.map.Icon(color='green')
+            ).add_to(m)
+    return m._repr_html_()
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=3245, debug=True)
