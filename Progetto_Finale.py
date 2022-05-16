@@ -144,22 +144,41 @@ def Menu_Ristorante():
 def Cerca_Ristoranti():
     return render_template("Progetto_Finale/Cerca_Ristoranti.html")
 
+@app.route('/scelta', methods=['GET'])
+def scelta():
+    Risposta = request.args['scelta']
+    if Risposta == 'Quartiere':
+        return render_template("Progetto_Finale/Cerca_Ristoranti_Quartiere.html")
+    if Risposta == 'Municipio':
+        return render_template("Progetto_Finale/Cerca_Ristoranti_Municipio.html")
+
 @app.route('/Mappa_Ristoranti', methods=['GET'])
 def Mappa_Ristoranti():
-    Ristoranti = request.args['Ristoranti']
-    Posto = request.args['Posto']
-    Ristoranti = Ristoranti[Ristoranti['denominazione_pe'].str.contains(Posto)]
-    Quartieri_Trovato = Quartieri[Quartieri['NIL'] == Posto]
-    Municipio_Trovato = Ristoranti[Ristoranti['MUNICIPIO'] == Municipio]
+    Ristoranti = request.args['Ristorante']
+    Municipio_Trovato = request.args['Municipio']
+    Quartiere_Trovato = request.args['Quartiere']
+    if Municipio_Trovato in list(Ristoranti['MUNICIPIO']):
+        Municipio_Trovato = Ristoranti[(Ristoranti['MUNICIPIO'] == Municipio_Trovato) & (Ristoranti['denominazione_pe'].str.contains(Posto))]
+        m = folium.Map(location=[45.500085,9.234780], zoom_start=12)
+        for _, row in Municipio_Trovato.iterrows():
+                folium.Marker( 
+                        location=[row["LAT_WGS84"], row["LONG_WGS84"]],
+                    popup=row['denominazione_pe'],
+                    icon=folium.map.Icon(color='green')
+                ).add_to(m)
+        return m._repr_html_()
+    else:
+        Quartieri_Trovato = Quartieri[Quartieri['NIL'] == Quartiere_Trovato & (Ristoranti['denominazione_pe'].str.contains(Posto))]
+        m = folium.Map(location=[45.500085,9.234780], zoom_start=12)
+        for _, row in Quartiere_Trovato.iterrows():
+                folium.Marker( 
+                        location=[row["LAT_WGS84"], row["LONG_WGS84"]],
+                    popup=row['denominazione_pe'],
+                    icon=folium.map.Icon(color='green')
+                ).add_to(m)
+        return m._repr_html_()
 
-    m = folium.Map(location=[45.500085,9.234780], zoom_start=12)
-    for _, row in Posto_Trovato.iterrows():
-            folium.Marker( 
-                location=[row["LAT_WGS84"], row["LONG_WGS84"]],
-                popup=row['denominazione_pe'],
-                icon=folium.map.Icon(color='green')
-            ).add_to(m)
-    return m._repr_html_()
+    
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=3245, debug=True)
