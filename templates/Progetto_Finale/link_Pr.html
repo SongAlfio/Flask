@@ -5,16 +5,22 @@
         <title>HTML basics</title>
         <meta name="viewport" content="width-device-width,initial-scale=1.0">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
-        <link rel="stylesheet" href="static/css/Esercizio1/link_Pr.css">
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.js"></script>
+
+        
+        <script type="text/javascript">
+            function mostraMessaggio() {
+            window.alert("Questo è un esempio di alert incluso nello script.");
+            }
+            </script>
         <style>
-            *{margin:0; padding:0;  font-family:Helvetica, Geneva, Arial,SunSans-Regular, sans-serif;
+    *{margin:0; padding:0;  font-family:Helvetica, Geneva, Arial,SunSans-Regular, sans-serif;
     box-sizing:border-box;}
     
     .inner-width{min-width:111px; padding:0 1vw;}
     .testimonial-section{width: 134vh; transform: translateX(30vh);}
-    .testimonial-section h1{text-align:center; color:#333;margin:30vh ;min-width: 100%;}
+    .testimonial-section h1{text-align:center; color:rgb(255, 255, 255);margin:30vh ;min-width: 100%;}
     
     .testimonial{background:#f1f1f1; padding:40px; overflow:hidden; border-radius:8px; cursor:pointer;}
     
@@ -23,28 +29,30 @@
     .test-name{font-size:12px; color:#333;}
     
     .test-name span{display:block; font-size:14px; font-weight:700; color:#3498db;}
-
+    #ino{padding-right: 60vh;}
     #primo_strato{font-family: 'Nunito', sans-serif;background-color: #1d1e61};
 
-    h1{font-size: xx-large; transform: translateX(-30vh);}
+    h1 h3{font-size: xx-large; transform: translateX(-30vh);}
+a{text-decoration: none;}
+    .border{margin:-27vh auto;}
 
-    .border{margin:40px auto;}
 
         </style>
     </head>
-    <body id="primo_strato">
+    <body id="primo_strato"style=" font-family: 'Nunito', sans-serif;background-color: #1d1e61">
 
       <div id="cio" class ="testimonial-section" style="border-radius: 40px; background:rgba(0,0,0,0.4);">
        <div class="inner-width">
-        <pre><h1> clicca qui è vedrai il nostro operato</h1></pre>
+        <pre id="ino"><h1> clicca qui è vedrai il nostro operato</h1></pre>
+        
         <div class="border" style="color: aliceblue;"></div>
         
         <div class="slides owl-carousel">
-            <div class="testimonial">
+            <a href="/mappa_milano"><div class="testimonial">
                 <div id="si"class="test-info">
                     <div class="test-name">
-                        <span>Ristor</span>
-                        img
+                        <span>mappa di milano</span>
+                    
                     </div>
                 </div>
                 <pre>
@@ -53,12 +61,12 @@
     usite e commenti su Anime/Manga chi
     ti potrebbero interessare
                 </pre>
-            </div>
-            <div class="testimonial">
+            </div></a>
+            <a href="/Numeri_Ristoranti"> <div class="testimonial">
                 <div class="test-info">
                     <div class="test-name">
                         <span>grafici</span>
-                        img
+                    
                     </div>
                 </div>
                 <pre>
@@ -67,65 +75,12 @@
     usite e commenti su Anime/Manga chi
     ti potrebbero interessare
                 </pre>
-            </div>
-            <div class="testimonial">
+            </div></a>
+            <a href="/Cerca_Quartiere"><div class="testimonial">
                 <div class="test-info">
                     <div class="test-name">
-                        <span>grafici</span>
-                        img
-                    </div>
-                </div>
-                <pre>
-                           
-    informazioni relative alle nuove 
-    usite e commenti su Anime/Manga chi
-    ti potrebbero interessare
-                </pre>
-            </div><div class="testimonial">
-                <div class="test-info">
-                    <div class="test-name">
-                        <span>grafici</span>
-                        img
-                    </div>
-                </div>
-                <pre>
-                           
-    informazioni relative alle nuove 
-    usite e commenti su Anime/Manga chi
-    ti potrebbero interessare
-                </pre>
-            </div><div class="testimonial">
-                <div class="test-info">
-                    <div class="test-name">
-                        <span>grafici</span>
-                        img
-                    </div>
-                </div>
-                <pre>
-                           
-    informazioni relative alle nuove 
-    usite e commenti su Anime/Manga chi
-    ti potrebbero interessare
-                </pre>
-            </div><div class="testimonial">
-                <div class="test-info">
-                    <div class="test-name">
-                        <span>grafici</span>
-                        img
-                    </div>
-                </div>
-                <pre>
-                           
-    informazioni relative alle nuove 
-    usite e commenti su Anime/Manga chi
-    ti potrebbero interessare
-                </pre>
-            </div>
-            <div class="testimonial">
-                <div class="test-info">
-                    <div class="test-name">
-                        <span>Anime</span>
-                        img
+                        <span>cerca quartieri da visitare</span>
+                        
                     </div>
                 </div>
                 <pre>
@@ -134,12 +89,12 @@
     e commenti su Anime/Manga che ti
         potrebbero interessare
                 </pre>
-            </div>
-            <div class="testimonial" >
+            </div></a>
+            <a href="/Cerca_Municipio"> <div class="testimonial" >
                 <div class="test-info">
                     <div class="test-name">
-                        <span>Anime</span>
-                        img
+                        <span>Cerca Municipi</span>
+                    
                     </div>
                 </div>
                 <pre>
@@ -148,7 +103,38 @@
  informazioni relative alle nuove usite e commenti
  su Anime/Manga che ti potrebbero interessare
                 </pre>
-            </div>
+            </div></a>
+            
+            <a href="/Cerca_Posto"> <div class="testimonial" >
+                <div class="test-info">
+                    <div class="test-name">
+                        <span>inserisci un posto in cui vuoi andare</span>
+                    
+                    </div>
+                </div>
+                <pre>
+                    
+                    
+ informazioni relative alle nuove usite e commenti
+ su Anime/Manga che ti potrebbero interessare
+                </pre>
+            </div></a>
+           
+            <a href="/Numeri_Ristoranti"> <div class="testimonial" >
+                <div class="test-info">
+                    <div class="test-name">
+                        <span>Cerca il ristorante in cui vuoi andare</span>
+                    
+                    </div>
+                </div>
+                <pre>
+                    
+                    
+ informazioni relative alle nuove usite e commenti
+ su Anime/Manga che ti potrebbero interessare
+                </pre>
+            </div></a>
+        
         </div>
        </div>
    
