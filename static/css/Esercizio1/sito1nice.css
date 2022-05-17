@@ -3,9 +3,8 @@
  padding:0;
  box-sizing: border-box;
  font-family: 'Poppins',sans-serif;}
-input{font-size: xx-large;  transform:translateY(30vh);}
-
-form{font-size: xx-large;  transform:translateY(20vh);flex: auto;padding-left: 40vmin;padding-right: 130vmin;}
+input{font-size: xx-large;}
+form input{font-size: xx-large;  transform:translateY(30vh);flex:none;}
  body{min-height:100vh;
  background:#1d0d36;}
  
@@ -60,6 +59,7 @@ form{font-size: xx-large;  transform:translateY(20vh);flex: auto;padding-left: 4
  height:100px;
  background:linear-gradient(to top,#1d0d36,transparent); z-index:1000;}
  
+ 
  section img {position:absolute;
  top:0;
  left:0;
@@ -85,6 +85,7 @@ form{font-size: xx-large;  transform:translateY(20vh);flex: auto;padding-left: 4
  transform:translateY(770px);
  transform:translateX(-20vh);
  margin-left:40em}
+ 
  
  .sec{
     position:relative;
@@ -116,6 +117,7 @@ form{font-size: xx-large;  transform:translateY(20vh);flex: auto;padding-left: 4
  z-index:9;
  
  margin-left:40em}
+
 
  #gi{margin:1em;
 text-decoration:none;
@@ -156,6 +158,7 @@ line-height: 50px;
 color: #fff;
 }    
 .noi_noi{font-size: xx-large;}
+
 
  .coi_coi{transform:translateY(16vh);    text-decoration:none;
 display:inline-block;}

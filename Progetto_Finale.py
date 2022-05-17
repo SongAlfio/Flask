@@ -91,7 +91,7 @@ def Cerca_Municipio():
 @app.route('/Mappa_Municipio_Ristoranti', methods=['GET'])
 def Mappa_Municipio_Ristoranti():
     Municipio = request.args['Municipio'].lower()
-    if Municipio in list(Ristoranti['Municipio']):
+    if Municipio in list(Ristoranti['MUNICIPIO']):
         Municipio_Trovato = Ristoranti[Ristoranti['MUNICIPIO'] == Municipio]
         m = folium.Map(location=[45.500085,9.234780], zoom_start=12)
         for _, row in Municipio_Trovato.iterrows():
@@ -112,7 +112,7 @@ def Cerca_Posto():
 @app.route('/Mappa_Posto', methods=['GET'])
 def Mappa_Posto():
     Posto = request.args['Posto'].lower()
-    if Posto in list(Ristoranti['denominazione']):
+    if Posto in list(Ristoranti['denominazione_pe']):
         Posto_Trovato = Ristoranti[Ristoranti['denominazione_pe'].str.contains(Posto)]
         m = folium.Map(location=[45.500085,9.234780], zoom_start=12)
         for _, row in Posto_Trovato.iterrows():
@@ -143,7 +143,7 @@ def scelta():
 def Mappa_Ristoranti_Quartiere():
     Ristorante = request.args['Ristorante'].lower()
     Quartiere = request.args['Quartiere'].lower()
-    if Ristorante in list(Ristoranti['denominazione_pe']) & Quartiere in list(Quartieri['NIL']):
+    if (Ristorante in list(Ristoranti['denominazione_pe'])) & (Quartiere in list(Quartieri['NIL'])):
         Ristorante_Trovato = Ristoranti[Ristoranti['denominazione_pe'].str.contains(Ristorante)]
         Quartiere_Trovato = Quartieri[Quartieri['NIL']==Quartiere]
         Ristoranti_Quartiere = Ristorante_Trovato[Ristorante_Trovato.within(Quartiere_Trovato.unary_union)]
@@ -162,18 +162,21 @@ def Mappa_Ristoranti_Quartiere():
 def Mappa_Ristoranti_Municipio():
     Ristorante = request.args['Ristorante'].lower()
     Municipio = request.args['Municipio']
-    Ristorante_Trovato = Ristoranti[Ristoranti['denominazione_pe'].str.contains(Ristorante)]
-    Municipio_Trovato = Ristoranti[Ristoranti['Municipio']==Municipio]
-    Ristoranti_Municipio = Ristorante_Trovato[Ristorante_Trovato.within(Municipio_Trovato.unary_union)]
+    if (Ristorante in list(Ristoranti['denominazione_pe'])) & (Municipio in list(Ristoranti['MUNICIPIO'])):
+        Ristorante_Trovato = Ristoranti[Ristoranti['denominazione_pe'].str.contains(Ristorante)]
+        Municipio_Trovato = Ristoranti[Ristoranti['MUNICIPIO']==Municipio]
+        Ristoranti_Municipio = Ristorante_Trovato[Ristorante_Trovato.within(Municipio_Trovato.unary_union)]
         
-    m = folium.Map(location=[45.500085,9.234780], zoom_start=12)
-    for _, row in Ristorante_Municipio.iterrows():
+        m = folium.Map(location=[45.500085,9.234780], zoom_start=12)
+        for _, row in Ristorante_Municipio.iterrows():
             folium.Marker( 
                     location=[row["LAT_WGS84"], row["LONG_WGS84"]],
                 popup=row['denominazione_pe'],
                 icon=folium.map.Icon(color='green')
             ).add_to(m)
-    return m._repr_html_()
+        return m._repr_html_()
+    else:
+        return render_template("Progetto_Finale/Errore.html",Errore = 'Posto')
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=3245, debug=True)
