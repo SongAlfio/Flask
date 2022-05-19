@@ -29,13 +29,14 @@ def home():
 # Visualizzazione di milano e le occupazioni
 @app.route('/mappa_milano', methods=['GET'])
 def mappa_milano():
-    fig, ax = plt.subplots(figsize = (12,8))
-
-    Quartieri.to_crs(epsg=3857).plot(ax=ax, facecolor='none', edgecolor='k')
-    contextily.add_basemap(ax=ax)
-    output = io.BytesIO()
-    FigureCanvas(fig).print_png(output)
-    return Response(output.getvalue(), mimetype='image/png')
+    m = folium.Map(location=[45.500085,9.234780], zoom_start=12)
+    for _, row in Ristoranti.iterrows():
+        folium.Marker(
+            location=[row["LAT_WGS84"], row["LONG_WGS84"]],
+            popup=row['denominazione_pe'],
+            icon=folium.map.Icon(color='green')
+        ).add_to(m)
+    return m._repr_html_()
 
 # Numero di  Ristoranti per ogni quartiere (grafico a barre)
 @app.route('/Numeri_Ristoranti', methods=['GET'])
@@ -90,7 +91,7 @@ def Cerca_Municipio():
 
 @app.route('/Mappa_Municipio_Ristoranti', methods=['GET'])
 def Mappa_Municipio_Ristoranti():
-    Municipio = request.args['Municipio'].lower()
+    Municipio = request.args['Municipio']
     if Municipio in list(Ristoranti['MUNICIPIO']):
         Municipio_Trovato = Ristoranti[Ristoranti['MUNICIPIO'] == Municipio]
         m = folium.Map(location=[45.500085,9.234780], zoom_start=12)
