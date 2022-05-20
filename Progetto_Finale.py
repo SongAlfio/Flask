@@ -113,18 +113,19 @@ def Cerca_Posto():
 @app.route('/Mappa_Posto', methods=['GET'])
 def Mappa_Posto():
     Posto = request.args['Posto'].lower()
-    if Posto in list(Ristoranti['denominazione_pe']):
+    Ristoranti2=Ristoranti['denominazione_pe'].str.lower().dropna().to_list()
+    if list(filter(lambda x: Posto in x,Ristoranti2))==None:
+        return render_template("Progetto_Finale/Errore.html",Errore = Posto)
+    else:
         Posto_Trovato = Ristoranti[Ristoranti['denominazione_pe'].str.contains(Posto)]
         m = folium.Map(location=[45.500085,9.234780], zoom_start=12)
         for _, row in Posto_Trovato.iterrows():
             folium.Marker( 
                 location=[row["LAT_WGS84"], row["LONG_WGS84"]],
-                popup=row['denominazione_pe'],
+                popup=Ristoranti2,
                 icon=folium.map.Icon(color='green')
             ).add_to(m)
         return m._repr_html_()
-    else:
-        return render_template("Progetto_Finale/Errore.html",Errore = Posto)
 
 
 # l'utente inserisce il nome che vuole cercare e anche il posto che sta, trova tutti i ristoranti in quel posto
@@ -169,7 +170,7 @@ def Mappa_Ristoranti_Municipio():
         Ristoranti_Municipio = Ristorante_Trovato[Ristorante_Trovato.within(Municipio_Trovato.unary_union)]
         
         m = folium.Map(location=[45.500085,9.234780], zoom_start=12)
-        for _, row in Ristorante_Municipio.iterrows():
+        for _, row in Ristoranti_Municipio.iterrows():
             folium.Marker( 
                     location=[row["LAT_WGS84"], row["LONG_WGS84"]],
                 popup=row['denominazione_pe'],
