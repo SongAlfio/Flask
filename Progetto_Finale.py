@@ -3,7 +3,7 @@ app = Flask(__name__)
 import pandas as pd
 import io
 import geopandas as gpd
-import contextily
+import contextily as ctx
 from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
 from matplotlib.figure import Figure
 import matplotlib
@@ -26,17 +26,15 @@ def homepage():
 def home():
     return render_template("Progetto_Finale/link_Pr.html")
     
-# Visualizzazione di milano e le occupazioni
+# Visualizzazione di milano
 @app.route('/mappa_milano', methods=['GET'])
 def mappa_milano():
-    m = folium.Map(location=[45.500085,9.234780], zoom_start=12)
-    for _, row in Ristoranti.iterrows():
-        folium.Marker(
-            location=[row["LAT_WGS84"], row["LONG_WGS84"]],
-            popup=row['denominazione_pe'],
-            icon=folium.map.Icon(color='green')
-        ).add_to(m)
-    return m._repr_html_()
+    fig, ax = plt.subplots(figsize = (12,8))
+    Quartieri.to_crs(epsg=3857).plot(ax=ax, alpha=0.5, facecolor='k')
+    ctx.add_basemap(ax=ax)
+    output = io.BytesIO()
+    FigureCanvas(fig).print_png(output)
+    return Response(output.getvalue(), mimetype='image/png')
 
 # Numero di  Ristoranti per ogni quartiere (grafico a barre)
 @app.route('/Numeri_Ristoranti', methods=['GET'])
@@ -114,15 +112,16 @@ def Cerca_Posto():
 def Mappa_Posto():
     Posto = request.args['Posto'].lower()
     Ristoranti2=Ristoranti['denominazione_pe'].str.lower().dropna().to_list()
+    Ristoranti1 = Ristoranti.dropna()
     if list(filter(lambda x: Posto in x,Ristoranti2))==None:
-        return render_template("Progetto_Finale/Errore.html",Errore = Posto)
+        return render_template("Progetto_Finale/Errore.html",Errore = 'Posto')
     else:
-        Posto_Trovato = Ristoranti[Ristoranti['denominazione_pe'].str.contains(Posto)]
+        Posto_Trovato = Ristoranti1[Ristoranti1['denominazione_pe'].str.contains(Posto)]
         m = folium.Map(location=[45.500085,9.234780], zoom_start=12)
         for _, row in Posto_Trovato.iterrows():
             folium.Marker( 
                 location=[row["LAT_WGS84"], row["LONG_WGS84"]],
-                popup=Ristoranti2,
+                popup=row['denominazione_pe'],
                 icon=folium.map.Icon(color='green')
             ).add_to(m)
         return m._repr_html_()
@@ -145,27 +144,37 @@ def scelta():
 def Mappa_Ristoranti_Quartiere():
     Ristorante = request.args['Ristorante'].lower()
     Quartiere = request.args['Quartiere'].lower()
-    if (Ristorante in list(Ristoranti['denominazione_pe'])) & (Quartiere in list(Quartieri['NIL'])):
-        Ristorante_Trovato = Ristoranti[Ristoranti['denominazione_pe'].str.contains(Ristorante)]
-        Quartiere_Trovato = Quartieri[Quartieri['NIL']==Quartiere]
-        Ristoranti_Quartiere = Ristorante_Trovato[Ristorante_Trovato.within(Quartiere_Trovato.unary_union)]
-        m = folium.Map(location=[45.500085,9.234780], zoom_start=12)
-        for _, row in Ristoranti_Quartiere.iterrows():
-            folium.Marker( 
+    Ristoranti2=Ristoranti['denominazione_pe'].str.lower().dropna().to_list()
+    Ristoranti1 = Ristoranti.dropna()
+    if list(filter(lambda x: Ristorante in x,Ristoranti2))==None:
+        return render_template("Progetto_Finale/Errore.html",Errore = Ristorante)
+    
+    if Quartiere in list(Quartieri['NIL']):
+            Ristorante_Trovato = Ristoranti1[Ristoranti1['denominazione_pe'].str.contains(Ristorante)]
+            Quartiere_Trovato = Quartieri[Quartieri['NIL']==Quartiere]
+            Ristoranti_Quartiere = Ristorante_Trovato[Ristorante_Trovato.within(Quartiere_Trovato.unary_union)]
+            m = folium.Map(location=[45.500085,9.234780], zoom_start=12)
+            for _, row in Ristoranti_Quartiere.iterrows():
+                folium.Marker( 
                     location=[row["LAT_WGS84"], row["LONG_WGS84"]],
-                popup=row['denominazione_pe'],
-                icon=folium.map.Icon(color='green')
-            ).add_to(m)
-        return m._repr_html_()
+                    popup=row['denominazione_pe'],
+                    icon=folium.map.Icon(color='green')
+                ).add_to(m)
+            return m._repr_html_()
     else:
-        return render_template("Progetto_Finale/Errore.html",Errore = 'Posto')
+            return render_template("Progetto_Finale/Errore.html",Errore = Quartiere)
+    
 
 @app.route('/Mappa_Ristoranti_Municipio', methods=['GET'])
 def Mappa_Ristoranti_Municipio():
     Ristorante = request.args['Ristorante'].lower()
     Municipio = request.args['Municipio']
-    if (Ristorante in list(Ristoranti['denominazione_pe'])) & (Municipio in list(Ristoranti['MUNICIPIO'])):
-        Ristorante_Trovato = Ristoranti[Ristoranti['denominazione_pe'].str.contains(Ristorante)]
+    Ristoranti2=Ristoranti['denominazione_pe'].str.lower().dropna().to_list()
+    Ristoranti1 = Ristoranti.dropna()
+    if list(filter(lambda x: Ristorante in x,Ristoranti2))==None:
+        return render_template("Progetto_Finale/Errore.html",Errore = Ristorante)
+    if Municipio in list(Ristoranti['MUNICIPIO']):
+        Ristorante_Trovato = Ristoranti1[Ristoranti1['denominazione_pe'].str.contains(Ristorante)]
         Municipio_Trovato = Ristoranti[Ristoranti['MUNICIPIO']==Municipio]
         Ristoranti_Municipio = Ristorante_Trovato[Ristorante_Trovato.within(Municipio_Trovato.unary_union)]
         
