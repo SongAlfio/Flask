@@ -1,9 +1,13 @@
 <link rel="stylesheet" href="static/css/Esercizio1/sito1nice.css">
 <header>
-    <a href="/Home" class="logo">Home</a>
+    <a href="/" class="logo">Home</a>
     <a href="javascript:history.go(-1);"><h1>ritorna alla pagina precedente</h1></a>
 </header>
-<form action="/Mappa_Municipio_Ristoranti" method="GET">
-    Inserisci un municipio:<input type="number" name="Municipio" min="1" max="9"/>
-    <input type="submit">
+
+<form action="/Mappa_Municipio_Ristoranti" method="GET" id="nomii">
+    <style type="text/css">
+    #municipio{width: 350;}
+    </style>
+   <input type="number" name="Municipio" min="1" max="9" placeholder="inserisci un municipio:" id="municipio"/>
+   <input type="submit">
 </form>

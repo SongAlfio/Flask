@@ -1,4 +1,13 @@
-<form action="/Mappa_Quartiere_Ristoranti" method="GET">
-    Inserisci un quartiere:<input type="text" name="Quartiere"/>
+<link rel="stylesheet" href="static/css/Esercizio1/sito1nice.css">
+<header>
+    <a href="/" class="logo">Home</a>
+    <a href="javascript:history.go(-1);"><h1>ritorna alla pagina precedente</h1></a>
+</header>
+<form action="/Mappa_Quartiere_Ristoranti" method="GET" id="nomii">
+    <style type="text/css">
+        #quartiere{width: 350;}
+        </style>
+
+    <input  name="Quartiere" type="text" placeholder="inserisci un quartiere:" id="quartiere"/>
     <input type="submit">
 </form>

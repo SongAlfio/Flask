@@ -1,7 +1,15 @@
+<link rel="stylesheet" href="static/css/Esercizio1/cssProva.css">
+<header>
+    <a href="/" class="logo">Home</a>
+    <a href="javascript:history.go(-1);"><h1>ritorna alla pagina precedente</h1></a>
+</header>
+
+<div class="nionio">
 <form action="/scelta" method="GET">
-    Vuoi cercare il ristorante in quartiere o in municipio? 
-    <input type="radio" name="scelta" value="Quartiere" required/>Quartiere
-    <input type="radio" name="scelta" value="Municipio" required/>Municipio
+    <p>Vuoi cercare il ristorante in quartiere o in municipio? </p>
+    <label for="quartiere"> Quartiere</label><input type="radio" name="scelta" value="Quartiere" id="quartiere" required/>
+    <label for="municipio"> Municipio</label><input type="radio" name="scelta" value="Municipio" id="municipio" required/>
     <br>
     <input type="submit">
 </form>
+</div>

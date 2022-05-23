@@ -1,7 +1,15 @@
+<link rel="stylesheet" href="static/css/Esercizio1/sito1nice.css">
+<header>
+    <a href="/" class="logo">Home</a>
+    <a href="javascript:history.go(-1);"><h1>ritorna alla pagina precedente</h1></a>
+</header>
 <form action="/Mappa_Ristoranti_Quartiere" method="GET">
-    
-    Inserisci un nome del ristorante:<input type="text" name="Ristorante" />
-    Inserisci un quartiere:<input type="text" name="Quartiere"/>
+    <style type="text/css">
+        #ristorante{width: 400;}
+        #quartiere{width: 400;}
+    </style>
+    <input type="text" name="Ristorante" placeholder="inserisci un ristorante:" id="ristorante"/>
+    <input type="text" name="Quartiere" placeholder="inserisci un quartiere:" id="quartiere"/>
     <input type="submit">
     
 </form>

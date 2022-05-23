@@ -1,4 +1,30 @@
-.nuovo{
-  color: yellow;
-  font-family: 'Times New Roman', Times, serif;
-}
+@import url('https://fonts.googleapis.com/css?family=Nunito:300');
+*{margin:0;
+ padding:0;
+ box-sizing: border-box;
+ font-family: 'Poppins',sans-serif;}
+ input{font-size: xx-large;}
+ body{min-height:100vh;
+ background:#CDAD00;}
+
+ header{position:absolute;
+  top:0;
+  left:0;
+  width:100%;
+  padding:30px 100px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  z-index:10000;}
+  
+ header .logo{color:#fff;
+  font-weight: 700;
+  text-decoration: none;
+  font-size: 2em;
+  text-transform: uppercase;
+  letter-spacing:2px;}
+
+.nionio{padding-top: 19vh;padding-left: 5vh;}
+
+body{font-size: x-large;}
+#icao{transform:translateX(70vh);}

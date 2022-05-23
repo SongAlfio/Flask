@@ -6,7 +6,7 @@
 input{font-size: xx-large;}
 form input{font-size: xx-large;  transform:translateY(30vh);flex:none;}
  body{min-height:100vh;
- background:#1d0d36;}
+ background:#CDAD00;}
  
  header{position:absolute;
  top:0;
@@ -164,3 +164,6 @@ color: #fff;
 display:inline-block;}
 a{font-size:x-large;}
 #ciao{font-size:xx-large;}
+.nionio{color: transparent;}
+#nui{border-radius: 40px;background-color: #FF9800;}
+#nomii{padding-left: 40vh;}
