@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css?family=Nunito:300');
 *{margin:0; padding:0;  font-family:Helvetica, Geneva, Arial,SunSans-Regular, sans-serif;
 box-sizing:border-box;}
 
@@ -18,4 +19,41 @@ box-sizing:border-box;}
 h1 h3{font-size: xx-large; transform: translateX(-30vh);}
 a{text-decoration: none;}
 .border{margin:-27vh auto;}
+#ciaosito{width:10vh; height:10vh;border-radius: 60%;background-color: #1d0d36;}
 
+header{position:absolute;
+    top:0;
+    left:0;
+    width:100%;
+    padding:30px 100px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    z-index:10000; font-size: xx-large;}
+
+header .logo{color:#fff;
+    font-weight: 700;
+    text-decoration: none;
+    font-size: 2em;
+    text-transform: uppercase;
+    letter-spacing:2px;}
+    
+    header ul{display:flex;
+    justify-content: center;
+    align-items: center;}
+ 
+    header ul{display:flex;
+    justify-content: center;
+    align-items: center;}
+    
+    header ul li{list-style:none;
+    margin-left:20px;}
+    
+    header ul li a{text-decoration:none;
+    padding:6px 15px;
+    color:#fff;
+    border-radius: 20px;}
+    
+    header ul li a:hover{
+    background:#fff;
+    color:#2b1055;}

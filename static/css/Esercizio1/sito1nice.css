@@ -160,10 +160,13 @@ color: #fff;
 .noi_noi{font-size: xx-large;}
 
 
- .coi_coi{transform:translateY(16vh);    text-decoration:none;
+ .coi_coi{transform:translateY(40vh); transform:translateX(-5vh);   text-decoration:none;
 display:inline-block;}
 a{font-size:x-large;}
 #ciao{font-size:xx-large;}
 .nionio{color: transparent;}
-#nui{border-radius: 40px;background-color: #FF9800;}
-#nomii{padding-left: 40vh;}
+#nui{border-radius: 40px;background-color: #FF9800;transform:translateY(30vh)}
+#nomii{padding-left: 90vh;}
+#ciaosito{width:10vh; height:10vh;border-radius: 60%;background-color: #1d0d36;}
+li{font-size: xx-large;}
+#cooc{font-style: italic; font-size: 14px;}

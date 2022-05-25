@@ -11,28 +11,32 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    
 </head>
+<script>
+    function setCookie(cname,cvalue,exdays){
+    var d = new Date();
+    d.setTime(d.getTime()+(exdays*24*60*60*1000));
+    var expires = "expires="+d.toGMTString();
+    document.cookie = cname+"="+cvalue+"; "+expires;
+}
 
-<body>
-    <a href="#" id="button"></a>
+    </script>
+<body onload="checkCookie()">
     <header>
-        <a href="#" class="logo">Logo</a>
         <ul>
-            <li><a href="#">Home</a></li>
-            <li><a href="#">accedi</a></li>
-            <li><a href="#">preferiti</a></li>
+            <a href="/"><img id="ciaosito" src="/static/images/imgPr_Finale/png-transparent-fate-zero-fate-stay-night-shirou-emiya-archer-saber-rider-leaf-heart-symmetry.png" alt="">
+<li>Sonenk</a></li>
         </ul>
     </header>
     <section>
         <img style="filter:brightness(80%);" src="static/images/imgPr_Finale/occupazione-suolo-pubblico.webp"
             id="cipolla">
         <pre>  <div class="noi_noi" style="position:absolute; top:37vh; left:50vh" >
-Questa possibilità si deve al posizionamento assoluto che consente 
-di astrarre il CSS dal flusso dei dati, consentendo di posizionarlo
-in qualsiasi punto della pagina, in modo assolutamente indipendente
- dagli altri elementi, che anzi possono venire sovrapposti o 
-                                        sottoposti.
-                                    </pre>
+Questo sito si occupa di visualizzare grafici e mappe di occupazioni 
+pubbliche di ristoranti,bar,osterie è tanto altro,tutto questo di Milano.
+
+<p id="cooc">Sito Web Di :Song Alfio & Enki E. Papes</p></pre>
         </div>
         <pre class="coi_coi">
         <a href="/Home" id="gi">per sapere di più</a>

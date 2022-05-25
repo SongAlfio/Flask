@@ -48,7 +48,7 @@ def Numeri_Ristoranti():
 
 @app.route('/grafico', methods=['GET'])
 def grafico():
-    fig, ax = plt.subplots(figsize = (10,20))
+    fig, ax = plt.subplots(figsize = (10,15))
 
     x = Quartieri_Ristoranti1.NIL_right
     y = Quartieri_Ristoranti1.insegna
