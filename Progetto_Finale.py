@@ -190,24 +190,26 @@ def Mappa_Ristoranti_Municipio():
         return render_template("Progetto_Finale/Errore.html",Errore = 'Posto')
 
 # Login e Register
-@app.route('/Login', methods=['Post']) 
+@app.route('/Login', methods=['POST', 'GET']) 
 def  Login() : 
     return render_template( 'Progetto_Finale/Login.html' )
    
 @app.route('/Controllo', methods=['Post']) 
 def  Controllo() : 
-    Nome_Utente = request.cookies('nm')
-    Password = request.cookies('Password')
-    Dati_Utenti = pd.read_csv('/workspace/Flask/templates/Dati_Utenti.csv')
+
+    Dati_Utenti = pd.read_csv('/workspace/Flask/templates/Progetto_Finale/Dati_Utenti.csv')
     Dati_Utente = {'Nome':Nome_Utente,'Password':Password}
     Dati_Utenti = Dati_Utenti.append(Dati_Utente,ignore_index=True)
-    if Nome_Utente in Dati_Utente['Nome']:
-        if Password in Dati_Utente['Password']:
-            return render_template( 'Progetto_Finale/link_Pr.html' )
+    if request.method == 'POST':
+        Nome_Utente = request.form('nm')
+        Password = request.form('Password')
+        if Nome_Utente in Dati_Utente['Nome']:
+            if Password in Dati_Utente['Password']:
+                return render_template( 'Progetto_Finale/link_Pr.html' )
+            else:
+                return render_template("Progetto_Finale/Errore.html",Errore = 'Password')
         else:
-            return render_template("Progetto_Finale/Errore.html",Errore = 'Password')
-    else:
-        return render_template("Progetto_Finale/Errore.html",Errore = 'Nome_Utente')
+            return render_template("Progetto_Finale/Errore.html",Errore = 'Nome_Utente')
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=3245, debug=True)
