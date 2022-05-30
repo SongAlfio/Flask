@@ -8,87 +8,18 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.js"></script>
         <link rel="stylesheet" href="static/css/Esercizio1/link_Pr(2).css">
+        <script src="static/js/Esercizio1/Popup.js"></script>
 
-
-        <style>
-    *{margin:0; padding:0;  font-family:Helvetica, Geneva, Arial,SunSans-Regular, sans-serif;
-    box-sizing:border-box;}
-    
-    .inner-width{min-width:111px; padding:0 1vw;}
-
-    .testimonial-section{width: 134vh; transform: translateX(30vh);}
-    
-    .testimonial-section h1{text-align:center; color:rgb(255, 255, 255);margin:30vh ;min-width: 100%;}
-    
-    .testimonial{background:#f1f1f1; padding:40px; overflow:hidden; border-radius:8px; cursor:pointer;}
-    
-    .test-info{display:flex; height:60px; align-items:center;}
-    
-    .test-name{font-size:12px; color:#333;}
-    
-    .test-name span{display:block; font-size:14px; font-weight:700; color:#3498db;}
-
-    #ino{padding-right: 60vh;}
-
-    #primo_strato{font-family: 'Nunito', sans-serif;background-color: #1d1e61};
-
-    h1 h3{font-size: xx-large; transform: translateX(-30vh);}
-
-    a{text-decoration: none;}
-
-    .border{margin:-27vh auto;}
-
-        </style>
-    
     </head>
-    <script>
-        function setCookie(cname,cvalue,exdays){
-        var d = new Date();
-        d.setTime(d.getTime()+(exdays*24*60*60*1000));
-        var expires = "expires="+d.toGMTString();
-        document.cookie = cname+"="+cvalue+"; "+expires;
-    }
-    function getCookie(cname) {
-      let name = cname + "=";
-      let ca = document.cookie.split(';');
-      for(let i = 0; i < ca.length; i++) {
-        let c = ca[i];
-        while (c.charAt(0) == ' ') {
-          c = c.substring(1);
-        }
-        if (c.indexOf(name) == 0) {
-          return c.substring(name.length, c.length);
-        }
-      }
-      return "";
-    }
-    
-    function checkCookie() {
-      let user = getCookie("username");
-      if (user != "") {
-        alert("Benvenuto di nuovo! " + user);
-      } else {
-        user = prompt("Please enter your name:", "");
-        if (user != "" && user != null) {
-          setCookie("username", user, 365);
-          window.alert("clicca con il cursore sui quadranti in bianco e spostali per vedere gli altri servizzi disponibili sul nostro sito.");
 
-        }
-      }
-    }
-        </script>
-    <script>
-    
-
-
-    </script>
-    
     <body id="primo_strato"style=" font-family: 'Nunito', sans-serif;background-color: #1d1e61" onload="checkCookie()">
         <header>
-            <ul>
-                <a href="/"><img id="ciaosito" src="/static/images/imgPr_Finale/png-transparent-fate-zero-fate-stay-night-shirou-emiya-archer-saber-rider-leaf-heart-symmetry.png" alt="">
-<li>Sonenk</a></li>
-            </ul>
+            <div class="naoc">
+                <a href="/" class="fofo"> <ul>
+                     <img id="ciaosito" src="/static/images/imgPr_Finale/png-transparent-fate-zero-fate-stay-night-shirou-emiya-archer-saber-rider-leaf-heart-symmetry.png" alt="">
+         <li> Sonenk</li>
+                 </ul></a>
+                 </div>
         </header>
         
        <div id="cio" class ="testimonial-section" style="border-radius: 40px; background:rgba(0,0,0,0.4);">
@@ -98,7 +29,7 @@
         <div class="border" style="color: aliceblue;"></div>
         
         <div class="slides owl-carousel">
-            <a href="/mappa_milano"><div class="testimonial">
+            <a href="/Mappa"><div class="testimonial">
                 <div id="si"class="test-info">
                     <div class="test-name">
                         <span>mappa di milano</span>

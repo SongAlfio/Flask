@@ -27,6 +27,10 @@ def home():
     return render_template("Progetto_Finale/link_Pr.html")
     
 # Visualizzazione di milano
+@app.route('/Mappa', methods=['GET'])
+def Mappa():
+    return render_template("Progetto_Finale/Mappa.html")
+
 @app.route('/mappa_milano', methods=['GET'])
 def mappa_milano():
     fig, ax = plt.subplots(figsize = (12,8))
@@ -113,18 +117,19 @@ def Mappa_Posto():
     Posto = request.args['Posto'].lower()
     Ristoranti2=Ristoranti['denominazione_pe'].str.lower().dropna().to_list()
     Ristoranti1 = Ristoranti.dropna()
-    if list(filter(lambda x: Posto in x,Ristoranti2))==None:
-        return render_template("Progetto_Finale/Errore.html",Errore = 'Posto')
+    Ristoranti3=Ristoranti1[Ristoranti1['denominazione_pe'].str.contains(Posto)]['denominazione_pe'].to_list()
+    if len(Ristoranti3) != 0:
+            Ristorante_Trovato = Ristoranti1[Ristoranti1['denominazione_pe'].str.contains(Posto)]
+            m = folium.Map(location=[45.500085,9.234780], zoom_start=12)
+            for _, row in Ristorante_Trovato.iterrows():
+                folium.Marker( 
+                    location=[row["LAT_WGS84"], row["LONG_WGS84"]],
+                    popup=row['denominazione_pe'],
+                    icon=folium.map.Icon(color='green')
+                ).add_to(m)
+            return m._repr_html_()
     else:
-        Posto_Trovato = Ristoranti1[Ristoranti1['denominazione_pe'].str.contains(Posto)]
-        m = folium.Map(location=[45.500085,9.234780], zoom_start=12)
-        for _, row in Posto_Trovato.iterrows():
-            folium.Marker( 
-                location=[row["LAT_WGS84"], row["LONG_WGS84"]],
-                popup=row['denominazione_pe'],
-                icon=folium.map.Icon(color='green')
-            ).add_to(m)
-        return m._repr_html_()
+            return render_template("Progetto_Finale/Errore.html",Errore = Posto)
 
 
 # l'utente inserisce il nome che vuole cercare e anche il posto che sta, trova tutti i ristoranti in quel posto
@@ -146,10 +151,9 @@ def Mappa_Ristoranti_Quartiere():
     Quartiere = request.args['Quartiere'].lower()
     Ristoranti2=Ristoranti['denominazione_pe'].str.lower().dropna().to_list()
     Ristoranti1 = Ristoranti.dropna()
-    if list(filter(lambda x: Ristorante in x,Ristoranti2))==None:
-        return render_template("Progetto_Finale/Errore.html",Errore = Ristorante)
-    
-    if Quartiere in list(Quartieri['NIL']):
+    Ristoranti3=Ristoranti1[Ristoranti1['denominazione_pe'].str.contains(Ristorante)]['denominazione_pe'].to_list()
+    if len(Ristoranti3) != 0:
+        if Quartiere in list(Quartieri['NIL']):
             Ristorante_Trovato = Ristoranti1[Ristoranti1['denominazione_pe'].str.contains(Ristorante)]
             Quartiere_Trovato = Quartieri[Quartieri['NIL']==Quartiere]
             Ristoranti_Quartiere = Ristorante_Trovato[Ristorante_Trovato.within(Quartiere_Trovato.unary_union)]
@@ -161,8 +165,10 @@ def Mappa_Ristoranti_Quartiere():
                     icon=folium.map.Icon(color='green')
                 ).add_to(m)
             return m._repr_html_()
-    else:
+        else:            
             return render_template("Progetto_Finale/Errore.html",Errore = Quartiere)
+    else:
+            return render_template("Progetto_Finale/Errore.html",Errore = Ristorante)
     
 
 @app.route('/Mappa_Ristoranti_Municipio', methods=['GET'])
@@ -171,45 +177,46 @@ def Mappa_Ristoranti_Municipio():
     Municipio = request.args['Municipio']
     Ristoranti2=Ristoranti['denominazione_pe'].str.lower().dropna().to_list()
     Ristoranti1 = Ristoranti.dropna()
-    if list(filter(lambda x: Ristorante in x,Ristoranti2))==None:
-        return render_template("Progetto_Finale/Errore.html",Errore = Ristorante)
-    if Municipio in list(Ristoranti['MUNICIPIO']):
-        Ristorante_Trovato = Ristoranti1[Ristoranti1['denominazione_pe'].str.contains(Ristorante)]
-        Municipio_Trovato = Ristoranti[Ristoranti['MUNICIPIO']==Municipio]
-        Ristoranti_Municipio = Ristorante_Trovato[Ristorante_Trovato.within(Municipio_Trovato.unary_union)]
-        
-        m = folium.Map(location=[45.500085,9.234780], zoom_start=12)
-        for _, row in Ristoranti_Municipio.iterrows():
-            folium.Marker( 
+    Ristoranti3=Ristoranti1[Ristoranti1['denominazione_pe'].str.contains(Ristorante)]['denominazione_pe'].to_list()
+    if len(Ristoranti3) != 0:
+        if Municipio in list(Ristoranti['MUNICIPIO']):
+            Ristorante_Trovato = Ristoranti1[Ristoranti1['denominazione_pe'].str.contains(Ristorante)]
+            Municipio_Trovato = Ristoranti[Ristoranti['MUNICIPIO']==Municipio]
+            Ristoranti_Municipio = Ristorante_Trovato[Ristorante_Trovato.within(Municipio_Trovato.unary_union)]
+            m = folium.Map(location=[45.500085,9.234780], zoom_start=12)
+            for _, row in Ristoranti_Municipio.iterrows():
+                folium.Marker( 
                     location=[row["LAT_WGS84"], row["LONG_WGS84"]],
-                popup=row['denominazione_pe'],
-                icon=folium.map.Icon(color='green')
-            ).add_to(m)
-        return m._repr_html_()
+                    popup=row['denominazione_pe'],
+                    icon=folium.map.Icon(color='green')
+                ).add_to(m)
+            return m._repr_html_()
+        else:            
+            return render_template("Progetto_Finale/Errore.html",Errore = Municipio)
     else:
-        return render_template("Progetto_Finale/Errore.html",Errore = 'Posto')
+            return render_template("Progetto_Finale/Errore.html",Errore = Ristorante)
 
 # Login e Register
-@app.route('/Login', methods=['POST', 'GET']) 
-def  Login() : 
-    return render_template( 'Progetto_Finale/Login.html' )
+#@app.route('/Login', methods=['POST', 'GET']) 
+#def  Login() : 
+#    return render_template( 'Progetto_Finale/Login.html' )
    
-@app.route('/Controllo', methods=['Post']) 
-def  Controllo() : 
-
-    Dati_Utenti = pd.read_csv('/workspace/Flask/templates/Progetto_Finale/Dati_Utenti.csv')
-    Dati_Utente = {'Nome':Nome_Utente,'Password':Password}
-    Dati_Utenti = Dati_Utenti.append(Dati_Utente,ignore_index=True)
-    if request.method == 'POST':
-        Nome_Utente = request.form('nm')
-        Password = request.form('Password')
-        if Nome_Utente in Dati_Utente['Nome']:
-            if Password in Dati_Utente['Password']:
-                return render_template( 'Progetto_Finale/link_Pr.html' )
-            else:
-                return render_template("Progetto_Finale/Errore.html",Errore = 'Password')
-        else:
-            return render_template("Progetto_Finale/Errore.html",Errore = 'Nome_Utente')
+#@app.route('/Controllo', methods=['Post']) 
+#def  Controllo() : 
+#
+#    Dati_Utenti = pd.read_csv('/workspace/Flask/templates/Progetto_Finale/Dati_Utenti.csv')
+#    Dati_Utente = {'Nome':Nome_Utente,'Password':Password}
+#    Dati_Utenti = Dati_Utenti.append(Dati_Utente,ignore_index=True)
+#    if request.method == 'POST':
+#        Nome_Utente = request.form('nm')
+#        Password = request.form('Password')
+#        if Nome_Utente in Dati_Utente['Nome']:
+#            if Password in Dati_Utente['Password']:
+#                return render_template( 'Progetto_Finale/link_Pr.html' )
+#            else:
+#                return render_template("Progetto_Finale/Errore.html",Errore = 'Password')
+#        else:
+#            return render_template("Progetto_Finale/Errore.html",Errore = 'Nome_Utente')
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=3245, debug=True)
