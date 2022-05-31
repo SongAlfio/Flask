@@ -90,4 +90,14 @@ header .logo{color:#fff;
         a{text-decoration: none;}
     
         .border{margin:-27vh auto;}
+
+
+            #ciaosito{width:7vh; height:7vh;border-radius: 60%;background-color: #1d0d36;}
+            .oaic{transform:translateX(-5vh);text-decoration:none;
+                background: rgba(0,0,0,0.7);
+                color: #fff;
+                display:inline-block;
+                border-radius: 40px;
+                padding:8px 30px}
+            li{font-size: xx-large;}        
     

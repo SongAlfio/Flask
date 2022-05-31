@@ -5,8 +5,11 @@
  font-family: 'Poppins',sans-serif;}
  input{font-size: xx-large;}
  body{min-height:100vh;
- background:#CDAD00;}
+ background:#18171c;
+color: aliceblue;}
 
+.inputSubmit{transform:translateY(4vh);transform:translateX(3vh);}
+header{position:absolute;}
  header{position:absolute;
   top:0;
   left:0;
@@ -17,14 +20,45 @@
   align-items:center;
   z-index:10000;}
   
- header .logo{color:#fff;
-  font-weight: 700;
-  text-decoration: none;
-  font-size: 2em;
-  text-transform: uppercase;
-  letter-spacing:2px;}
+  header{position:absolute;
+    top:0;
+    left:0;
+    width:100%;
+    padding:30px 100px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    z-index:10000;}
+    
+    header .logo{color:#fff;
+    font-weight: 700;
+    text-decoration: none;
+    font-size: 2em;
+    text-transform: uppercase;
+    letter-spacing:2px;}
+    
+    header ul{display:flex;
+    justify-content: center;
+    align-items: center;}
+    
+    header ul li{list-style:none;
+    margin-left:20px;}
+    
+    header ul li a{text-decoration:none;
+    padding:6px 15px;
+    color:#fff;
+    border-radius: 20px;}
+    
+    header ul li a:hover{
+    background:#fff;
+    color:#2b1055;}
 
 .nionio{padding-top: 19vh;padding-left: 5vh;}
 
 body{font-size: x-large;}
 #icao{transform:translateX(70vh);}
+#ciaosito{width:7vh; height:7vh;border-radius: 60%;background-color: #1d0d36;}
+.oaic{transform:translateX(-5vh)}
+li{font-size: xx-large;}
+
+form{transform:translateY(30vh)}

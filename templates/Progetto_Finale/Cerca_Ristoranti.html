@@ -1,15 +1,21 @@
 <link rel="stylesheet" href="static/css/Esercizio1/cssProva.css">
+<link rel="shortcut icon" href="static/images/imgPr_Finale/bel3.ico"/>
 <header>
-    <a href="/" class="logo">Home</a>
+    <div>
+        <a href="/" class="fofo"> <ul>
+             <img id="ciaosito" src="/static/images/imgPr_Finale/png-transparent-fate-zero-fate-stay-night-shirou-emiya-archer-saber-rider-leaf-heart-symmetry.png">
+ <li> Sonenk</li>
+         </ul></a>
+         </div>
     <a href="javascript:history.go(-1);"><h1>ritorna alla pagina precedente</h1></a>
 </header>
 
-<div class="nionio">
-<form action="/scelta" method="GET">
+
+<form action="/scelta" method="GET" class="antiForm">
     <p>Vuoi cercare il ristorante in quartiere o in municipio? </p>
-    <label for="quartiere">Quartiere</label><input type="radio" name="scelta" value="Quartiere" id="quartiere" required/>
-    <label for="municipio">Municipio</label><input type="radio" name="scelta" value="Municipio" id="municipio" required/>
+    <pre>
+    <label for="quartiere">Quartiere</label><input type="radio" name="scelta" value="Quartiere" id="quartiere" required/>        <label for="municipio">   Municipio</label><input type="radio" name="scelta" value="Municipio" id="municipio" required/>
+</pre>
     <br>
-    <input type="submit">
+    <input type="submit" class="inputSubmit">
 </form>
-</div>

@@ -3,10 +3,11 @@
     
     .inner-width{max-width:1200px; margin:auto; padding:0 20px;}
     
+    
     .testimonial-section h1{text-align:center; color:#333; font-size:24px;margin:50vh ;}
     #ciaosito{width:10vh; height:10vh;border-radius: 60%;background-color: #1d0d36;}
     .border{width:100px; height:3px; background:#333; margin:40px auto;}
-    
+    #ciaosito{width:7vh; height:7vh;border-radius: 60%;background-color: #1d0d36;}
     .testimonial{background:#f1f1f1; padding:40px; overflow:hidden; border-radius:8px; cursor:pointer;}
     
     .test-info{display:flex; height:60px; align-items:center;}

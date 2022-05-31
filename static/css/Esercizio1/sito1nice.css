@@ -5,8 +5,8 @@
  font-family: 'Poppins',sans-serif;}
 input{font-size: xx-large;}
 form input{font-size: xx-large;  transform:translateY(30vh);flex:none;}
- body{min-height:100vh;
- background:#18171c;}
+#fromRes{transform:translateX(10vh)}
+ body{min-height:100vh; background:#18171c;}
  
  header{position:absolute;
  top:0;
@@ -127,20 +127,6 @@ transform:translateY(10vh);
 padding:8px 30px; background:#fff;
  color:#2b1055;}
 
-#button {
-display: inline-block;
-background-color: #FF9800;
-width: 50px;
-height: 50px;
-text-align: center;
-border-radius: 4px;
-margin: 30px;
-position: fixed;
-bottom: 30px;
-right: 30px;
-transition: background-color .3s;
-z-index: 1000;
-}
 #button:hover {
 cursor: pointer;
 background-color: #333;
@@ -167,22 +153,20 @@ a{font-size:x-large;}
 
 #ciao{font-size:xx-large;}
 
-
-
 .fofo{text-decoration: none;color: antiquewhite;}
 
 #nui{border-radius: 40px;background-color: #FF9800;transform:translateY(30vh)}
 
 #nomii{padding-left: 90vh;}
 
-#ciaosito{width:10vh; height:10vh;border-radius: 60%;background-color: #1d0d36;}
-
+#ciaosito{width:7vh; height:7vh;border-radius: 60%;background-color: #1d0d36;}
+.oaic{transform:translateX(-5vh)}
 li{font-size: xx-large;}
 
 #cooc{font-style: italic; font-size: 14px;}
 
-#imgP{max-width: 20%;}
-.imgT{transform:translateX(57vh);position: fixed;}
-#imgS{max-width: 15%;}
 footer{background-color: #18171c;}
+.formPadding{transform:translateX(12vh)}
+
+.antiForm{transform:translateY(12vh);}
 

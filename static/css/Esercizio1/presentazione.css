@@ -1,0 +1,45 @@
+
+.box {width: 450px;
+  background: rgba(0, 0, 0, 0.4);
+  padding: 40px;
+  text-align: center;
+  margin: auto;
+  margin-top: 5%;
+  color: white;
+  font-family: 'Century Gothic',sans-serif;}
+
+.box-img{
+   border-radius: 50%;
+   width:30vh; height:30vh
+   
+ }
+
+.box #oioio{
+   font-size: 3vh;
+   letter-spacing: 6px;
+   font-weight: 100;
+   
+ }
+
+ .box h5{
+   font-size: 20px;
+   letter-spacing: 3px;
+   font-weight: 100;
+ }
+
+ .box .pfr{
+   text-align: justify;
+ }
+
+ .box .linkS a{
+   color: white;
+   text-decoration: none;
+   font-size: 60px;
+   transition: all ease-in-out 250ms;
+ }
+
+ .box .linkS{
+   display: inline-block;
+   margin: 6px;
+   list-style: none;
+ }

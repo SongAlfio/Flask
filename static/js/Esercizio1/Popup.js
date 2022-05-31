@@ -21,14 +21,9 @@ function getCookie(cname) {
 
 function checkCookie() {
   let user = getCookie("username");
-  if (user != "") {
-    alert("Benvenuto di nuovo! " + user);
-  } else {
-    user = prompt("Please enter your name:", "");
-    if (user != "" && user != null) {
+  if (user = "" | null) {
       setCookie("username", user, 365);
       window.alert("clicca con il cursore sui quadranti in bianco e spostali per vedere gli altri servizzi disponibili sul nostro sito.");
-
     }
   }
-}
+
