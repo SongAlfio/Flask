@@ -66,8 +66,8 @@ def grafico():
 # Inserimento quartiere e visualizazzione mappa delle Ristoranti
 @app.route('/Cerca_Quartiere', methods=['GET'])
 def Cerca():
-    Quartieri1 = Quartieri['NIL'].drop_duplicates()
-    return render_template("Progetto_Finale/Cerca_Quartiere.html", Quartieri = Quartieri.to_html())
+    Quartieri1 = Quartieri.drop_duplicates()
+    return render_template("Progetto_Finale/Cerca_Quartiere.html", Quartieri = Quartieri1[['NIL']].to_html())
 
 @app.route('/Mappa_Quartiere_Ristoranti', methods=['GET'])
 def Mappa_Quartiere_Ristoranti():
@@ -142,7 +142,8 @@ def Cerca_Ristoranti():
 def scelta():
     Risposta = request.args['scelta']
     if Risposta == 'Quartiere':
-        return render_template("Progetto_Finale/Cerca_Ristoranti_Quartiere.html")
+        Quartieri1 = Quartieri.drop_duplicates()
+        return render_template("Progetto_Finale/Cerca_Ristoranti_Quartiere.html",Quartieri = Quartieri1[['NIL']].to_html())
     if Risposta == 'Municipio':
         return render_template("Progetto_Finale/Cerca_Ristoranti_Municipio.html")
 
