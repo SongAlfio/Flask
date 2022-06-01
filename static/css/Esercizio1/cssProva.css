@@ -55,10 +55,18 @@ header{position:absolute;}
 
 .nionio{padding-top: 19vh;padding-left: 5vh;}
 
+div{ 
+  text-decoration:none;
+  background: rgba(0,0,0,0.7);
+  color: #fff;
+  display:inline-block;
+  border-radius: 40px;
+  padding:8px 30px}
+
 body{font-size: x-large;}
 #icao{transform:translateX(70vh);}
 #ciaosito{width:7vh; height:7vh;border-radius: 60%;background-color: #1d0d36;}
 .oaic{transform:translateX(-5vh)}
 li{font-size: xx-large;}
-
+.fofo{text-decoration: none;color: antiquewhite;}
 form{transform:translateY(30vh)}

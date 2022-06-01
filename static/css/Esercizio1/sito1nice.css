@@ -157,8 +157,9 @@ a{font-size:x-large;}
 
 #nui{border-radius: 40px;background-color: #FF9800;transform:translateY(30vh)}
 
-#nomii{padding-left: 90vh;}
+#nomii{padding-left: 90vh;transform:translateY(10vh)}
 
+#nomii2{padding-left: 90vh;transform:translateY(-200vh)}
 #ciaosito{width:7vh; height:7vh;border-radius: 60%;background-color: #1d0d36;}
 .oaic{transform:translateX(-5vh)}
 li{font-size: xx-large;}
@@ -166,7 +167,17 @@ li{font-size: xx-large;}
 #cooc{font-style: italic; font-size: 14px;}
 
 footer{background-color: #18171c;}
-.formPadding{transform:translateX(12vh)}
+.formPadding{padding-left: 90vh;transform:translateY(-200vh)}
+.formPadding2{transform:translateX(12vh)}
 
 .antiForm{transform:translateY(12vh);}
 
+.box-img{
+   width: 34px;
+   height: 34px;
+   display: flex;
+   border-radius: 50%;
+   align-items: center;
+   justify-content: center;
+   transform:translateX(14%)
+}

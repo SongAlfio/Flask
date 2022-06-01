@@ -220,7 +220,26 @@ def Mappa_Ristoranti_Municipio():
 #        else:
 #            return render_template("Progetto_Finale/Errore.html",Errore = 'Nome_Utente')
 
+# l'utente inserisce il nome del ristorante e trova gli occupazioni di  quel municipio
+@app.route('/Cerca_Nome_Ristorante', methods=['GET'])
+def Cerca_Nome_Ristorante():
+    return render_template("Progetto_Finale/Cerca_Nome_Ristorante.html")
 
+@app.route('/Mappa_Nome_Ristorante', methods=['GET'])
+def Mappa_Nome_Ristorante():
+    Nome = request.args['Nome']
+    if Nome in list(Ristoranti['insegna']):
+        Nome_Trovato = Ristoranti[Ristoranti['insegna'] == Nome]
+        m = folium.Map(location=[45.500085,9.234780], zoom_start=12)
+        for _, row in Nome_Trovato.iterrows():
+            folium.Marker(
+                location=[row["LAT_WGS84"], row["LONG_WGS84"]],
+                popup=row['insegna'],
+                icon=folium.map.Icon(color='green')
+            ).add_to(m)
+        return m._repr_html_()
+    else:
+        return render_template("Progetto_Finale/Errore.html",Errore = Nome)
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=3245, debug=True)

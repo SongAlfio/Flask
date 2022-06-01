@@ -11,14 +11,16 @@
          </div>
     <a href="javascript:history.go(-1);"><h1>ritorna alla pagina precedente</h1></a>
 </header>
+<div id="nui">
 {{Quartieri|safe}}
+</div>
 <form action="/Mappa_Ristoranti_Quartiere" method="GET" class="formPadding">
     <style type="text/css">
         #ristorante{width: 400;}
         #quartiere{width: 400;}
     </style>
     <pre>
-    <input type="text" name="Ristorante" placeholder="inserisci un ristorante:" id="ristorante" required/><br>
+    <input type="text" name="Ristorante" placeholder="inserisci un tipo di ristorante:" id="ristorante" required/><br>
     <input type="text" name="Quartiere" placeholder="inserisci un quartiere:" id="quartiere" required/>  <input type="submit">
 </pre>
     
