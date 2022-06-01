@@ -178,6 +178,6 @@ footer{background-color: #18171c;}
    display: flex;
    border-radius: 50%;
    align-items: center;
-   justify-content: center;
+   justify-content: center;   
    transform:translateX(14%)
 }
