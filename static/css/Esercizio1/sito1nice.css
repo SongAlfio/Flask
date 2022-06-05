@@ -181,3 +181,7 @@ footer{background-color: #18171c;}
    justify-content: center;   
    transform:translateX(14%)
 }
+.grafico {position:absolute;
+   ;
+   transform:translateY(30vh);
+   }
