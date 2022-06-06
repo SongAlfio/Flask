@@ -81,7 +81,7 @@ def Mappa_Quartiere_Ristoranti():
         for _, r in Quartiere_Trovato.iterrows():
             sim_geo = gpd.GeoSeries(r['geometry']).simplify(tolerance=0.0001)
             geo_j = sim_geo.to_json()
-            geo_j = folium.GeoJson(data=geo_j, style_function=lambda x: {'fillColor': 'blue'})
+            geo_j = folium.GeoJson(data=geo_j, style_function=lambda x: {'fillColor': 'red'})
             folium.Popup(r['NIL']).add_to(geo_j)
             geo_j.add_to(m)
         for _, row in Quartiere_Ristorante.dropna().iterrows():
@@ -102,16 +102,16 @@ def Cerca_Municipio():
 @app.route('/Mappa_Municipio_Ristoranti', methods=['GET'])
 def Mappa_Municipio_Ristoranti():
     Municipio = request.args['Municipio']
-    if Municipio in list(Ristoranti['MUNICIPIO']):
+    Municipio = int(Municipio)
+    if Municipio in list(Ristoranti['MUNICIPIO'].dropna().astype('int64')):
+        Ristoranti['MUNICIPIO'] = Ristoranti['MUNICIPIO'].dropna().astype('int64')
         Ristoranti_Trovati = Ristoranti[Ristoranti['MUNICIPIO'] == Municipio]
-        Ristoranti_Trovati['MUNICIPIO'] = Ristoranti_Trovati['MUNICIPIO'].astype(int)
         Municipio_Trovato = Municipi[Municipi['MUNICIPIO'] == Municipio]
-        Municipio_Trovato['MUNICIPIO'] = Municipio_Trovato['MUNICIPIO'].astype(int)
         m = folium.Map(location=[45.500085,9.234780], zoom_start=12)
         for _, r in Municipio_Trovato.iterrows():
-            sim_geo = geopandas.GeoSeries(r['geometry']).simplify(tolerance=0.0001)
+            sim_geo = gpd.GeoSeries(r['geometry']).simplify(tolerance=0.0001)
             geo_j = sim_geo.to_json()
-            geo_j = folium.GeoJson(data=geo_j, style_function=lambda x: {'fillColor': 'blue'})
+            geo_j = folium.GeoJson(data=geo_j, style_function=lambda x: {'fillColor': 'red'})
             folium.Popup(r['MUNICIPIO']).add_to(geo_j)
             geo_j.add_to(m)
         for _, row in Ristoranti_Trovati.iterrows():
@@ -143,7 +143,7 @@ def Mappa_Posto():
                 folium.Marker( 
                     location=[row["LAT_WGS84"], row["LONG_WGS84"]],
                     popup=row['denominazione_pe'],
-                    icon=folium.map.Icon(color='green')
+                    icon=folium.map.Icon(color='lightblue')
                 ).add_to(m)
             return m._repr_html_()
     else:
@@ -181,12 +181,12 @@ def Mappa_Ristoranti_Quartiere():
                 folium.Marker( 
                     location=[row["LAT_WGS84"], row["LONG_WGS84"]],
                     popup=row['denominazione_pe'],
-                    icon=folium.map.Icon(color='green')
+                    icon=folium.map.Icon(color='lightblue')
                 ).add_to(m)
             for _, r in Quartiere_Trovato.iterrows():
                 sim_geo = gpd.GeoSeries(r['geometry']).simplify(tolerance=0.0001)
                 geo_j = sim_geo.to_json()
-                geo_j = folium.GeoJson(data=geo_j, style_function=lambda x: {'fillColor': 'blue'})
+                geo_j = folium.GeoJson(data=geo_j, style_function=lambda x: {'fillColor': 'red'})
                 folium.Popup(r['NIL']).add_to(geo_j)
                 geo_j.add_to(m)
             return m._repr_html_()
@@ -200,26 +200,27 @@ def Mappa_Ristoranti_Quartiere():
 def Mappa_Ristoranti_Municipio():
     Ristorante = request.args['Ristorante'].lower()
     Municipio = request.args['Municipio']
-    Ristoranti2=Ristoranti['denominazione_pe'].str.lower().dropna().to_list()
+    Municipio = int(Municipio)
     Ristoranti1 = Ristoranti.dropna()
-    Ristoranti3=Ristoranti1[Ristoranti1['denominazione_pe'].str.contains(Ristorante)]['denominazione_pe'].to_list()
-    if len(Ristoranti3) != 0:
-        if Municipio in list(Ristoranti['MUNICIPIO']):
-            Ristorante_Trovato = Ristoranti1[Ristoranti1['denominazione_pe'].str.contains(Ristorante)]
-            Municipio_Trovato = Ristoranti[Ristoranti['MUNICIPIO']==Municipio]
-            Ristoranti_Municipio = Ristorante_Trovato[Ristorante_Trovato.within(Municipio_Trovato.unary_union)]
+    Ristoranti2=Ristoranti1[Ristoranti1['denominazione_pe'].str.contains(Ristorante)]['denominazione_pe'].to_list()
+    if len(Ristoranti2) != 0:
+        if Municipio in list(Ristoranti1['MUNICIPIO'].astype('int64')):           
+            Ristoranti['MUNICIPIO'] = Ristoranti['MUNICIPIO'].dropna().astype('int64')
+            Ristoranti_Trovato = Ristoranti1[Ristoranti1['denominazione_pe'].str.contains(Ristorante)]
+            Municipio_Trovato = Municipi[Municipi['MUNICIPIO'] == Municipio]
+            Ristoranti_Municipio = Ristoranti_Trovato[Ristoranti_Trovato.intersects(Municipio_Trovato.unary_union)]
             m = folium.Map(location=[45.500085,9.234780], zoom_start=12)
             for _, row in Ristoranti_Municipio.iterrows():
                 folium.Marker( 
                     location=[row["LAT_WGS84"], row["LONG_WGS84"]],
                     popup=row['denominazione_pe'],
-                    icon=folium.map.Icon(color='green')
+                    icon=folium.map.Icon(color='lightblue')
                 ).add_to(m)
             for _, r in Municipio_Trovato.iterrows():
                 sim_geo = gpd.GeoSeries(r['geometry']).simplify(tolerance=0.0001)
                 geo_j = sim_geo.to_json()
-                geo_j = folium.GeoJson(data=geo_j, style_function=lambda x: {'fillColor': 'blue'})
-                folium.Popup(r['NIL']).add_to(geo_j)
+                geo_j = folium.GeoJson(data=geo_j, style_function=lambda x: {'fillColor': 'red'})
+                folium.Popup(r['MUNICIPIO']).add_to(geo_j)
                 geo_j.add_to(m)
             return m._repr_html_()
         else:            
