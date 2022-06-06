@@ -14,6 +14,7 @@ import folium
 Occupazione = gpd.read_file('https://dati.comune.milano.it/dataset/6efe2c8c-e1f6-4411-a061-df1e0d7a69ab/resource/6538b1ca-3545-4eb4-9e11-12136650aa35/download/geopost_layer_0_m_public_info_owner_street_statuspoint_4326_final.geojson')
 Ristoranti = gpd.read_file('https://dati.comune.milano.it/dataset/f0671ce0-8c11-4ee8-95e5-c09913d00f83/resource/1623c617-028c-4f8a-9919-7f314701f50a/download/economia_pubblici_esercizi_in_piano.geojson')
 Quartieri = gpd.read_file('/workspace/Flask/Quartieri.zip')
+Municipi = gpd.read_file('/workspace/Flask/Municipio.geojson')
 Ristoranti = Ristoranti.dropna(subset=['denominazione_pe','LONG_WGS84','LAT_WGS84'])
 Quartieri['NIL'] = Quartieri['NIL'].str.lower()
 Ristoranti['denominazione_pe'] = Ristoranti['denominazione_pe'].str.lower()
@@ -66,7 +67,7 @@ def grafico():
 # Inserimento quartiere e visualizazzione mappa delle Ristoranti
 @app.route('/Cerca_Quartiere', methods=['GET'])
 def Cerca():
-    Quartieri1 = Quartieri.drop_duplicates()
+    Quartieri1 = Quartieri.drop_duplicates().sort_values('NIL').reset_index()
     return render_template("Progetto_Finale/Cerca_Quartiere.html", Quartieri = Quartieri1[['NIL']].to_html())
 
 @app.route('/Mappa_Quartiere_Ristoranti', methods=['GET'])
@@ -77,12 +78,18 @@ def Mappa_Quartiere_Ristoranti():
         Quartiere_Ristorante = Ristoranti[Ristoranti.within(Quartiere_Trovato.unary_union)]
         
         m = folium.Map(location=[45.500085,9.234780], zoom_start=12)
-        for _, row in Quartiere_Ristorante.iterrows():
-            folium.Marker(
-                location=[row["LAT_WGS84"], row["LONG_WGS84"]],
-                popup=row['denominazione_pe'],
-                icon=folium.map.Icon(color='green')
-            ).add_to(m)
+        for _, r in Quartiere_Trovato.iterrows():
+            sim_geo = gpd.GeoSeries(r['geometry']).simplify(tolerance=0.0001)
+            geo_j = sim_geo.to_json()
+            geo_j = folium.GeoJson(data=geo_j, style_function=lambda x: {'fillColor': 'blue'})
+            folium.Popup(r['NIL']).add_to(geo_j)
+            geo_j.add_to(m)
+        for _, row in Quartiere_Ristorante.dropna().iterrows():
+          folium.Marker(
+              location=[row["LAT_WGS84"], row["LONG_WGS84"]],
+              popup=row['denominazione_pe'],
+              icon=folium.map.Icon(color='lightblue')
+              ).add_to(m)
         return m._repr_html_()
     else:
         return render_template("Progetto_Finale/Errore.html",Errore = Quartiere)
@@ -96,14 +103,24 @@ def Cerca_Municipio():
 def Mappa_Municipio_Ristoranti():
     Municipio = request.args['Municipio']
     if Municipio in list(Ristoranti['MUNICIPIO']):
-        Municipio_Trovato = Ristoranti[Ristoranti['MUNICIPIO'] == Municipio]
+        Ristoranti_Trovati = Ristoranti[Ristoranti['MUNICIPIO'] == Municipio]
+        Ristoranti_Trovati['MUNICIPIO'] = Ristoranti_Trovati['MUNICIPIO'].astype(int)
+        Municipio_Trovato = Municipi[Municipi['MUNICIPIO'] == Municipio]
+        Municipio_Trovato['MUNICIPIO'] = Municipio_Trovato['MUNICIPIO'].astype(int)
         m = folium.Map(location=[45.500085,9.234780], zoom_start=12)
-        for _, row in Municipio_Trovato.iterrows():
+        for _, r in Municipio_Trovato.iterrows():
+            sim_geo = geopandas.GeoSeries(r['geometry']).simplify(tolerance=0.0001)
+            geo_j = sim_geo.to_json()
+            geo_j = folium.GeoJson(data=geo_j, style_function=lambda x: {'fillColor': 'blue'})
+            folium.Popup(r['MUNICIPIO']).add_to(geo_j)
+            geo_j.add_to(m)
+        for _, row in Ristoranti_Trovati.iterrows():
             folium.Marker(
                 location=[row["LAT_WGS84"], row["LONG_WGS84"]],
                 popup=row['denominazione_pe'],
-                icon=folium.map.Icon(color='green')
+                icon=folium.map.Icon(color='lightblue')
             ).add_to(m)
+        
         return m._repr_html_()
     else:
         return render_template("Progetto_Finale/Errore.html",Errore = Municipio)
@@ -142,7 +159,7 @@ def Cerca_Ristoranti():
 def scelta():
     Risposta = request.args['scelta']
     if Risposta == 'Quartiere':
-        Quartieri1 = Quartieri.drop_duplicates()
+        Quartieri1 = Quartieri.drop_duplicates().sort_values('NIL').reset_index()
         return render_template("Progetto_Finale/Cerca_Ristoranti_Quartiere.html",Quartieri = Quartieri1[['NIL']].to_html())
     if Risposta == 'Municipio':
         return render_template("Progetto_Finale/Cerca_Ristoranti_Municipio.html")
@@ -166,6 +183,12 @@ def Mappa_Ristoranti_Quartiere():
                     popup=row['denominazione_pe'],
                     icon=folium.map.Icon(color='green')
                 ).add_to(m)
+            for _, r in Quartiere_Trovato.iterrows():
+                sim_geo = gpd.GeoSeries(r['geometry']).simplify(tolerance=0.0001)
+                geo_j = sim_geo.to_json()
+                geo_j = folium.GeoJson(data=geo_j, style_function=lambda x: {'fillColor': 'blue'})
+                folium.Popup(r['NIL']).add_to(geo_j)
+                geo_j.add_to(m)
             return m._repr_html_()
         else:            
             return render_template("Progetto_Finale/Errore.html",Errore = Quartiere)
@@ -192,6 +215,12 @@ def Mappa_Ristoranti_Municipio():
                     popup=row['denominazione_pe'],
                     icon=folium.map.Icon(color='green')
                 ).add_to(m)
+            for _, r in Municipio_Trovato.iterrows():
+                sim_geo = gpd.GeoSeries(r['geometry']).simplify(tolerance=0.0001)
+                geo_j = sim_geo.to_json()
+                geo_j = folium.GeoJson(data=geo_j, style_function=lambda x: {'fillColor': 'blue'})
+                folium.Popup(r['NIL']).add_to(geo_j)
+                geo_j.add_to(m)
             return m._repr_html_()
         else:            
             return render_template("Progetto_Finale/Errore.html",Errore = Municipio)
@@ -223,7 +252,8 @@ def Mappa_Ristoranti_Municipio():
 # l'utente inserisce il nome del ristorante e trova gli occupazioni di  quel municipio
 @app.route('/Cerca_Nome_Ristorante', methods=['GET'])
 def Cerca_Nome_Ristorante():
-    return render_template("Progetto_Finale/Cerca_Nome_Ristorante.html")
+    Nome_Ristoranti = Ristoranti.drop_duplicates(subset='insegna').dropna().sort_values('insegna').reset_index()
+    return render_template("Progetto_Finale/Cerca_Nome_Ristorante.html",Nome_Ristoranti = Nome_Ristoranti[['insegna']].to_html())
 
 @app.route('/Mappa_Nome_Ristorante', methods=['GET'])
 def Mappa_Nome_Ristorante():
@@ -234,9 +264,10 @@ def Mappa_Nome_Ristorante():
         for _, row in Nome_Trovato.iterrows():
             folium.Marker(
                 location=[row["LAT_WGS84"], row["LONG_WGS84"]],
-                popup=row['insegna'],
-                icon=folium.map.Icon(color='green')
+                popup=row[['insegna','denominazione_pe']],
+                icon=folium.map.Icon(color='lightblue')
             ).add_to(m)
+        
         return m._repr_html_()
     else:
         return render_template("Progetto_Finale/Errore.html",Errore = Nome)

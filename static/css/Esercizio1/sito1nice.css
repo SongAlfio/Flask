@@ -155,11 +155,22 @@ a{font-size:x-large;}
 
 .fofo{text-decoration: none;color: antiquewhite;}
 
-#nui{border-radius: 40px;background-color: #FF9800;transform:translateY(30vh)}
+#nui{border-radius: 40px;background-color: #FF9800;transform:translateY(30vh);width:15%;
+   height: 39%;
+   border: thin solid black;
+   overflow: auto;
+   resize: both;}
 
-#nomii{padding-left: 90vh;transform:translateY(10vh)}
 
-#nomii2{padding-left: 90vh;transform:translateY(-200vh)}
+   #Quartieri_Ristoranti{border-radius: 40px;background-color: #FF9800;transform:translateY(30vh);width:15%;width:15%;
+      height: 90%;
+      border: thin solid black;
+      overflow: auto;
+      resize: both;}
+   .union{transform:translateX(50%)}
+#nomii{padding-left: 90vh;transform:translateY(20vh)}
+
+#nomii2{padding-left: 90vh;transform:translateY(-20vh)}
 #ciaosito{width:7vh; height:7vh;border-radius: 60%;background-color: #1d0d36;}
 .oaic{transform:translateX(-5vh)}
 li{font-size: xx-large;}
@@ -167,10 +178,11 @@ li{font-size: xx-large;}
 #cooc{font-style: italic; font-size: 14px;}
 
 footer{background-color: #18171c;}
-.formPadding{padding-left: 90vh;transform:translateY(-200vh)}
+.formPadding{padding-left: 90vh;transform:translateY(-20vh)}
 .formPadding2{transform:translateX(12vh)}
 
 .antiForm{transform:translateY(12vh);}
+
 
 .box-img{
    width: 34px;
@@ -181,7 +193,6 @@ footer{background-color: #18171c;}
    justify-content: center;   
    transform:translateX(14%)
 }
-.grafico {position:absolute;
-   ;
-   transform:translateY(30vh);
-   }
+.grafico {position:absolute; transform:translateY(30vh);}
+
+#ristoranti{transform:translateY(90%);}

@@ -9,12 +9,16 @@
          </div>
     <a href="javascript:history.go(-1);"><h1>ritorna alla pagina precedente</h1></a>
 </header>
-    
+<div id="nui">
+    {{Nome_Ristoranti|safe}}
+</div>
 <form action="/Mappa_Nome_Ristorante" method="GET" id="nomii" class="nomii2">
     <style type="text/css">
-        #ristorante{width: 450;}
+        .ristorante{
+            width: 450;
+        }
         </style>
 
-    <input  name="Nome" type="text" placeholder="inserisci il nome del ristorante:" id="ristorante" required/>
-    <input type="submit">
+    <input  name="Nome" type="text" placeholder="inserisci il nome del ristorante:" id="ristoranti" class="ristorante"required/>
+    <input type="submit" id="ristoranti">
 </form>
